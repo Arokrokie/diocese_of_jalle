@@ -42,12 +42,17 @@
 
     @if($photos->count())
     <div class="row g-3" id="gallery-grid">
-      @foreach($photos as $photo)
+    @foreach($photos as $photo)
+      @php
+        $imgUrl = Str::startsWith($photo->image, ['assets/', 'http://', 'https://'])
+          ? asset($photo->image)
+          : asset('storage/' . $photo->image);
+      @endphp
       <div class="col-lg-4 col-md-6">
-        <a href="{{ asset('storage/' . $photo->image) }}" class="gallery-lightbox d-block overflow-hidden rounded shadow-sm position-relative" data-caption="{{ $photo->title }}">
+        <a href="{{ $imgUrl }}" class="gallery-lightbox d-block overflow-hidden rounded shadow-sm position-relative" data-caption="{{ $photo->title }}">
           <div style="height: 240px; overflow: hidden;">
             <img loading="lazy"
-                 src="{{ asset('storage/' . $photo->image) }}"
+                 src="{{ $imgUrl }}"
                  alt="{{ $photo->title }}"
                  class="w-100 h-100"
                  style="object-fit: cover; object-position: center; transition: transform 0.4s ease;">

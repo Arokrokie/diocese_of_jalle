@@ -34,9 +34,14 @@
         </thead>
         <tbody>
           @foreach($photos as $photo)
+          @php
+            $imgUrl = Str::startsWith($photo->image, ['assets/', 'http://', 'https://'])
+              ? asset($photo->image)
+              : asset('storage/' . $photo->image);
+          @endphp
           <tr>
             <td>
-              <img src="{{ asset('storage/' . $photo->image) }}" alt="{{ $photo->title }}"
+              <img src="{{ $imgUrl }}" alt="{{ $photo->title }}"
                    class="rounded border" style="width:60px; height:45px; object-fit:cover;">
             </td>
             <td>
