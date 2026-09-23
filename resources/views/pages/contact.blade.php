@@ -1,6 +1,7 @@
 @extends('layouts.app')
 
 @section('title', 'Contact Us & Prayer Requests')
+@section('meta_description', 'Contact the Diocese of Jalle Diocesan Secretariat in Jalle Payam, Bor County, South Sudan. Reach our pastoral team for prayer, general inquiries, and diocesan administration.')
 
 @section('content')
 <!-- Subheader Start -->

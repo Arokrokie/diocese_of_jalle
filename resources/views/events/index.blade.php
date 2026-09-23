@@ -1,6 +1,7 @@
 @extends('layouts.app')
 
 @section('title', 'Diocesan Events & Assemblies')
+@section('meta_description', 'Stay updated on upcoming diocesan events, synods, assemblies, and community gatherings organized by the Diocese of Jalle in Jonglei State, South Sudan.')
 
 @section('content')
 <!-- Subheader Start -->

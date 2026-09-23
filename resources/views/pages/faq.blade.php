@@ -1,6 +1,7 @@
 @extends('layouts.app')
 
 @section('title', 'Frequently Asked Questions')
+@section('meta_description', 'Find answers to frequently asked questions about the Diocese of Jalle, our Episcopal Anglican theology, Sunday service timings, parish locations, and community programs.')
 
 @section('content')
 <!-- Subheader Start -->
@@ -108,3 +109,54 @@
     </div>
   </div>
 @endsection
+
+@push('schema')
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Where is the Diocese of Jalle located?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "The Diocese of Jalle is headquartered in Jalle Payam, Bor County, Jonglei State, South Sudan. It belongs to the Jonglei Internal Province of the Episcopal Church of South Sudan (ECSS)."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Who is the Bishop of the Diocese of Jalle?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "The Diocese of Jalle is led by Rt. Rev. Abraham Matiop Deng Kechdit, who oversees pastoral care, diocesan administration, clergy ordinations, and community peacebuilding initiatives across the diocese."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What are the Sunday worship timings?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Sunday Morning Prayer begins at 9:00 AM, followed by the Holy Communion service and sermon from 10:30 AM to 12:30 PM. Children and youth participate in Sunday School and youth choir devotions."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How can I get involved with the Mothers' Union?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "All Christian women and mothers are warmly invited to join the Mothers' Union (MU). Meetings are held every Thursday at 3:00 PM in local parishes for prayer, family discipleship, and community service."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How can individuals or organizations partner with or donate to the Diocese?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "You can support church construction, clergy training, and flood relief efforts by visiting the Diocese of Jalle Donation page or emailing info@dioceseofjalle.org to coordinate direct contributions."
+      }
+    }
+  ]
+}
+</script>
+@endpush

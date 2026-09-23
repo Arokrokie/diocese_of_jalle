@@ -1,6 +1,17 @@
 @extends('layouts.app')
 
 @section('title', $post->title)
+@php
+  $postDesc = Str::limit(strip_tags($post->excerpt ?: $post->content), 160);
+  $postImgUrl = $post->image
+    ? (Str::startsWith($post->image, ['assets/', 'http://', 'https://']) ? asset($post->image) : asset('storage/' . $post->image))
+    : asset('assets/img/diocese/bishop-and-clergy.jpeg');
+@endphp
+@section('meta_description', $postDesc)
+@section('og_type', 'article')
+@section('og_title', $post->title)
+@section('og_description', $postDesc)
+@section('og_image', $postImgUrl)
 
 @section('content')
 <!-- Subheader Start -->
@@ -94,5 +105,35 @@
     </div>
   </div>
 </div>
-<!-- Article Section End -->
 @endsection
+
+@push('schema')
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "NewsArticle",
+  "headline": {{ json_encode($post->title) }},
+  "description": {{ json_encode($postDesc) }},
+  "image": [{{ json_encode($postImgUrl) }}],
+  "datePublished": "{{ $post->created_at->toIso8601String() }}",
+  "dateModified": "{{ ($post->updated_at ?: $post->created_at)->toIso8601String() }}",
+  "author": {
+    "@type": "Organization",
+    "name": "Diocese of Jalle",
+    "url": "{{ url('/') }}"
+  },
+  "publisher": {
+    "@type": "ReligiousOrganization",
+    "name": "Diocese of Jalle - Episcopal Church of South Sudan",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "{{ asset('assets/img/diocese/crest.png') }}"
+    }
+  },
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "{{ route('news.show', $post->slug) }}"
+  }
+}
+</script>
+@endpush

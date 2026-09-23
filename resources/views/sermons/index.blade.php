@@ -1,6 +1,7 @@
 @extends('layouts.app')
 
 @section('title', 'Sermons & Pastoral Messages')
+@section('meta_description', 'Listen to and read pastoral sermon messages and Bible teachings from the Diocese of Jalle clergy. Grounded in Orthodox Anglican theology and the Holy Scriptures.')
 
 @section('content')
 <!-- Subheader Start -->

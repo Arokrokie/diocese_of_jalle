@@ -1,6 +1,8 @@
 @extends('layouts.app')
 
 @section('title', 'Proclaiming Christ & Fostering Peace')
+@section('meta_description', 'Welcome to the official portal of the Diocese of Jalle, Jonglei Internal Province, Episcopal Church of South Sudan (ECSS), led by Rt. Rev. Abraham Matiop Deng Kechdit. Proclaiming the Gospel, reconciling communities, and serving Jalle Payam.')
+@section('meta_keywords', 'Diocese of Jalle, Episcopal Church of South Sudan, ECSS, Bishop Abraham Matiop Deng Kechdit, Jalle Payam, Bor County, Jonglei State, Anglican Diocese, South Sudan Church, Mothers Union, Christian Worship')
 
 @section('content')
 <!-- Banner Start -->

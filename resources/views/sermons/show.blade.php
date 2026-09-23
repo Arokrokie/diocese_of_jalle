@@ -1,6 +1,17 @@
 @extends('layouts.app')
 
 @section('title', $sermon->title)
+@php
+  $sermonDesc = Str::limit(strip_tags($sermon->description ?: ($sermon->preacher . ' preaching on ' . $sermon->scripture)), 160);
+  $sermonImgUrl = $sermon->image
+    ? (Str::startsWith($sermon->image, ['assets/', 'http://', 'https://']) ? asset($sermon->image) : asset('storage/' . $sermon->image))
+    : asset('assets/img/diocese/open-bible.webp');
+@endphp
+@section('meta_description', $sermonDesc)
+@section('og_type', 'article')
+@section('og_title', $sermon->title)
+@section('og_description', $sermonDesc)
+@section('og_image', $sermonImgUrl)
 
 @section('content')
 <!-- Subheader Start -->
@@ -110,5 +121,30 @@
     </div>
   </div>
 </div>
-<!-- Sermon Details End -->
 @endsection
+
+@push('schema')
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "CreativeWork",
+  "name": {{ json_encode($sermon->title) }},
+  "description": {{ json_encode($sermonDesc) }},
+  "author": {
+    "@type": "Person",
+    "name": {{ json_encode($sermon->preacher) }}
+  },
+  "datePublished": "{{ $sermon->sermon_date ? $sermon->sermon_date->toIso8601String() : ($sermon->created_at ? $sermon->created_at->toIso8601String() : '') }}",
+  "publisher": {
+    "@type": "ReligiousOrganization",
+    "name": "Diocese of Jalle - Episcopal Church of South Sudan",
+    "url": "{{ url('/') }}",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "{{ asset('assets/img/diocese/crest.png') }}"
+    }
+  },
+  "image": [{{ json_encode($sermonImgUrl) }}]
+}
+</script>
+@endpush

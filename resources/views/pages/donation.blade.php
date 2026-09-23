@@ -1,6 +1,7 @@
 @extends('layouts.app')
 
 @section('title', 'Support Our Mission - Giving')
+@section('meta_description', 'Support the Christian mission, church reconstruction, theological education, and community flood relief programs of the Diocese of Jalle in Jonglei State, South Sudan.')
 
 @section('content')
 <!-- Subheader Start -->

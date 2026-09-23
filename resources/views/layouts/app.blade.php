@@ -13,7 +13,34 @@
     }
   @endphp
   <title>{{ $fullTitle }}</title>
-  <meta name="description" content="@yield('meta_description', 'Official web portal of the Diocese of Jalle, Jonglei Internal Province, Episcopal Church of South Sudan (ECSS).')">
+  <meta name="description" content="@yield('meta_description', 'Official web portal of the Diocese of Jalle, Jonglei Internal Province, Episcopal Church of South Sudan (ECSS), led by Rt. Rev. Abraham Matiop Deng Kechdit.')">
+  <meta name="keywords" content="@yield('meta_keywords', 'Diocese of Jalle, Episcopal Church of South Sudan, ECSS, Jonglei Internal Province, Bishop Abraham Matiop Deng Kechdit, Jalle Payam, Bor County, Anglican Diocese, South Sudan Church, Christian worship, Mothers Union, youth ministry, church planting')">
+  <meta name="author" content="Diocese of Jalle">
+  <meta name="publisher" content="Episcopal Church of South Sudan (ECSS)">
+  <meta name="robots" content="@yield('meta_robots', 'index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1')">
+  <link rel="canonical" href="@yield('canonical', url()->current())">
+
+  <!-- Local / Regional SEO (Jalle Payam, Bor County, Jonglei State, South Sudan) -->
+  <meta name="geo.region" content="SS-JG">
+  <meta name="geo.placename" content="Jalle Payam, Bor County, Jonglei State, South Sudan">
+  <meta name="geo.position" content="6.4833;31.5500">
+  <meta name="ICBM" content="6.4833, 31.5500">
+
+  <!-- Open Graph (Facebook, WhatsApp, LinkedIn, iMessage previews) -->
+  <meta property="og:site_name" content="Diocese of Jalle - Episcopal Church of South Sudan">
+  <meta property="og:type" content="@yield('og_type', 'website')">
+  <meta property="og:title" content="@yield('og_title', $fullTitle)">
+  <meta property="og:description" content="@yield('og_description', $__env->yieldContent('meta_description', 'Official web portal of the Diocese of Jalle, Jonglei Internal Province, Episcopal Church of South Sudan (ECSS), led by Rt. Rev. Abraham Matiop Deng Kechdit.'))">
+  <meta property="og:url" content="@yield('canonical', url()->current())">
+  <meta property="og:image" content="@yield('og_image', asset('assets/img/diocese/crest.png'))">
+  <meta property="og:image:alt" content="Diocese of Jalle Crest">
+  <meta property="og:locale" content="en_US">
+
+  <!-- Twitter Cards -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="@yield('twitter_title', $__env->yieldContent('og_title', $fullTitle))">
+  <meta name="twitter:description" content="@yield('twitter_description', $__env->yieldContent('og_description', $__env->yieldContent('meta_description', 'Official web portal of the Diocese of Jalle, Jonglei Internal Province, Episcopal Church of South Sudan (ECSS).')))">
+  <meta name="twitter:image" content="@yield('twitter_image', $__env->yieldContent('og_image', asset('assets/img/diocese/crest.png')))">
 
   <!-- Favicon -->
   <link rel="icon" type="image/png" sizes="32x32" href="{{ asset('favicon-32x32.png') }}">
@@ -934,6 +961,63 @@
 
   </style>
   @stack('styles')
+  <!-- Schema.org JSON-LD Structured Data for Church & Knowledge Graph -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": ["Church", "ReligiousOrganization"],
+        "@id": "{{ url('/') }}#church",
+        "name": "Diocese of Jalle",
+        "alternateName": [
+          "Diocese of Jalle - ECSS",
+          "Episcopal Church of South Sudan - Diocese of Jalle"
+        ],
+        "url": "{{ url('/') }}",
+        "logo": {
+          "@type": "ImageObject",
+          "@id": "{{ url('/') }}#logo",
+          "url": "{{ asset('assets/img/diocese/crest.png') }}",
+          "caption": "Diocese of Jalle Crest"
+        },
+        "image": "{{ asset('assets/img/diocese/crest.png') }}",
+        "description": "The Diocese of Jalle is an active Anglican diocese within the Jonglei Internal Province of the Episcopal Church of South Sudan (ECSS), ministering under the leadership of Rt. Rev. Abraham Matiop Deng Kechdit.",
+        "email": "info@dioceseofjalle.org",
+        "address": {
+          "@type": "PostalAddress",
+          "streetAddress": "Diocesan Secretariat, Jalle Payam",
+          "addressLocality": "Bor County",
+          "addressRegion": "Jonglei State",
+          "addressCountry": "SS"
+        },
+        "leader": {
+          "@type": "Person",
+          "name": "Rt. Rev. Abraham Matiop Deng Kechdit",
+          "jobTitle": "Diocesan Bishop",
+          "image": "{{ asset('assets/img/diocese/abraham.jpeg') }}"
+        },
+        "parentOrganization": {
+          "@type": "ReligiousOrganization",
+          "name": "Episcopal Church of South Sudan",
+          "alternateName": "ECSS"
+        }
+      },
+      {
+        "@type": "WebSite",
+        "@id": "{{ url('/') }}#website",
+        "url": "{{ url('/') }}",
+        "name": "Diocese of Jalle",
+        "description": "Official Web Portal of the Diocese of Jalle, Episcopal Church of South Sudan (ECSS)",
+        "publisher": {
+          "@id": "{{ url('/') }}#church"
+        },
+        "inLanguage": "en"
+      }
+    ]
+  }
+  </script>
+  @stack('schema')
 </head>
 
 <body class="{{ Request::is('/') ? 'page-home' : 'page-inner' }}">

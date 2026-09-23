@@ -1,6 +1,7 @@
 @extends('layouts.app')
 
 @section('title', 'Photo Gallery - Diocese of Jalle')
+@section('meta_description', 'View photo galleries of the Diocese of Jalle: episcopal confirmations, Mothers\' Union conferences, Sunday choir processions, youth rallies, and parish fellowship.')
 
 @section('content')
 <!-- Subheader Start -->

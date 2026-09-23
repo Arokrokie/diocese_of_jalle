@@ -1,6 +1,7 @@
 @extends('layouts.app')
 
 @section('title', 'Diocesan News & Announcements')
+@section('meta_description', 'Read the latest diocesan news, announcements, pastoral letters, and community updates from the Diocese of Jalle, Episcopal Church of South Sudan.')
 
 @section('content')
 <!-- Subheader Start -->

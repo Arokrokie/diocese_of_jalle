@@ -1,6 +1,7 @@
 @extends('layouts.app')
 
 @section('title', 'Churches & Parishes - Diocese of Jalle')
+@section('meta_description', 'Explore the parishes, archdeaconries, and worship congregations across Jalle Payam, Bor County, Jonglei State, in the Diocese of Jalle, Episcopal Church of South Sudan.')
 
 @section('content')
 <!-- Subheader Start -->

@@ -1,6 +1,7 @@
 @extends('layouts.app')
 
 @section('title', 'Diocesan Leadership & Clergy')
+@section('meta_description', 'Meet the ordained clergy and lay leadership of the Diocese of Jalle, Episcopal Church of South Sudan (ECSS), including Bishop Abraham Matiop Deng, Bishop\'s Commissioner, Archdeacons, and Mothers\' Union leaders.')
 
 @section('content')
 <!-- Subheader Start -->

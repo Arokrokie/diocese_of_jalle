@@ -1,6 +1,17 @@
 @extends('layouts.app')
 
 @section('title', $event->title)
+@php
+  $eventDesc = Str::limit(strip_tags($event->description), 160);
+  $eventImgUrl = $event->image
+    ? (Str::startsWith($event->image, ['assets/', 'http://', 'https://']) ? asset($event->image) : asset('storage/' . $event->image))
+    : asset('assets/img/diocese/diocese-event-1.jpeg');
+@endphp
+@section('meta_description', $eventDesc)
+@section('og_type', 'event')
+@section('og_title', $event->title)
+@section('og_description', $eventDesc)
+@section('og_image', $eventImgUrl)
 
 @section('content')
 <!-- Subheader Start -->
@@ -99,5 +110,35 @@
     </div>
   </div>
 </div>
-<!-- Event Details End -->
 @endsection
+
+@push('schema')
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": {{ json_encode($event->title) }},
+  "description": {{ json_encode($eventDesc) }},
+  "startDate": "{{ $event->start_date ? $event->start_date->toIso8601String() : '' }}",
+  "endDate": "{{ ($event->end_date ?: $event->start_date) ? ($event->end_date ?: $event->start_date)->toIso8601String() : '' }}",
+  "eventStatus": "https://schema.org/EventScheduled",
+  "eventAttendanceMode": "https://schema.org/OfflineEventAttendanceMode",
+  "location": {
+    "@type": "Place",
+    "name": {{ json_encode($event->location ?: 'Diocese of Jalle') }},
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Jalle Payam, Bor County",
+      "addressRegion": "Jonglei State",
+      "addressCountry": "SS"
+    }
+  },
+  "image": [{{ json_encode($eventImgUrl) }}],
+  "organizer": {
+    "@type": "ReligiousOrganization",
+    "name": "Diocese of Jalle - Episcopal Church of South Sudan",
+    "url": "{{ url('/') }}"
+  }
+}
+</script>
+@endpush

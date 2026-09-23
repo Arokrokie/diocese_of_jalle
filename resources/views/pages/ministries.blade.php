@@ -1,6 +1,7 @@
 @extends('layouts.app')
 
 @section('title', 'Ministries of the Diocese')
+@section('meta_description', 'Discover the active ministries of the Diocese of Jalle: Mothers\' Union, Youth & Choir, Evangelism & Church Planting, Peacebuilding, and Community Humanitarian Relief.')
 
 @section('content')
 <!-- Subheader Start -->

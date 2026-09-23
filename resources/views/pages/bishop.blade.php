@@ -1,6 +1,8 @@
 @extends('layouts.app')
 
 @section('title', "Bishop Abraham Matiop Deng Kechdit - Bishop's Profile")
+@section('meta_description', 'Official episcopal profile of Rt. Rev. Abraham Matiop Deng Kechdit, Bishop of the Diocese of Jalle, Jonglei Internal Province, Episcopal Church of South Sudan (ECSS).')
+@section('og_image', asset('assets/img/diocese/abraham.jpeg'))
 
 @section('content')
 <!-- Subheader Start -->
@@ -85,3 +87,21 @@
     </div>
   </div>
 @endsection
+
+@push('schema')
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Person",
+  "name": "Rt. Rev. Abraham Matiop Deng Kechdit",
+  "jobTitle": "Diocesan Bishop",
+  "worksFor": {
+    "@type": "ReligiousOrganization",
+    "name": "Diocese of Jalle - Episcopal Church of South Sudan",
+    "url": "{{ url('/') }}"
+  },
+  "image": "{{ asset('assets/img/diocese/abraham.jpeg') }}",
+  "description": "Bishop of the Diocese of Jalle within the Jonglei Internal Province of the Episcopal Church of South Sudan (ECSS)."
+}
+</script>
+@endpush

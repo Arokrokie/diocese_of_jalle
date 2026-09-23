@@ -1,6 +1,7 @@
 @extends('layouts.app')
 
 @section('title', 'About Our Diocese & Mission')
+@section('meta_description', 'Discover the history, vision, and Christian mission of the Diocese of Jalle, Jonglei Internal Province, Episcopal Church of South Sudan (ECSS), ministering under the leadership of Rt. Rev. Abraham Matiop Deng Kechdit.')
 
 @section('content')
 <!-- Subheader Start -->
