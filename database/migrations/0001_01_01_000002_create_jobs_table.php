@@ -11,6 +11,8 @@ return new class extends Migration
      */
     public function up(): void
     {
+        Schema::defaultStringLength(191);
+
         if (!Schema::hasTable('jobs')) {
             Schema::create('jobs', function (Blueprint $table) {
                 $table->id();
@@ -25,7 +27,7 @@ return new class extends Migration
 
         if (!Schema::hasTable('job_batches')) {
             Schema::create('job_batches', function (Blueprint $table) {
-                $table->string('id')->primary();
+                $table->string('id', 191)->primary();
                 $table->string('name');
                 $table->integer('total_jobs');
                 $table->integer('pending_jobs');
@@ -41,7 +43,7 @@ return new class extends Migration
         if (!Schema::hasTable('failed_jobs')) {
             Schema::create('failed_jobs', function (Blueprint $table) {
                 $table->id();
-                $table->string('uuid')->unique();
+                $table->string('uuid', 191)->unique();
                 $table->text('connection');
                 $table->text('queue');
                 $table->longText('payload');

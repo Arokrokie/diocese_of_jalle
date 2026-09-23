@@ -11,9 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
+        Schema::defaultStringLength(191);
+
         if (!Schema::hasTable('cache')) {
             Schema::create('cache', function (Blueprint $table) {
-                $table->string('key')->primary();
+                $table->string('key', 191)->primary();
                 $table->mediumText('value');
                 $table->integer('expiration')->index();
             });
@@ -21,7 +23,7 @@ return new class extends Migration
 
         if (!Schema::hasTable('cache_locks')) {
             Schema::create('cache_locks', function (Blueprint $table) {
-                $table->string('key')->primary();
+                $table->string('key', 191)->primary();
                 $table->string('owner');
                 $table->integer('expiration')->index();
             });

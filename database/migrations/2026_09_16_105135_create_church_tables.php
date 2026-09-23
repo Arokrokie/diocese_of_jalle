@@ -11,11 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
+        Schema::defaultStringLength(191);
+
         if (!Schema::hasTable('posts')) {
             Schema::create('posts', function (Blueprint $table) {
                 $table->id();
                 $table->string('title');
-                $table->string('slug')->unique();
+                $table->string('slug', 191)->unique();
                 $table->string('category')->default('News');
                 $table->text('excerpt')->nullable();
                 $table->longText('content');
@@ -31,7 +33,7 @@ return new class extends Migration
             Schema::create('sermons', function (Blueprint $table) {
                 $table->id();
                 $table->string('title');
-                $table->string('slug')->unique();
+                $table->string('slug', 191)->unique();
                 $table->string('preacher')->default('Rt. Rev. Abraham Matiop Deng');
                 $table->string('scripture')->nullable();
                 $table->date('sermon_date')->nullable();
@@ -48,7 +50,7 @@ return new class extends Migration
             Schema::create('events', function (Blueprint $table) {
                 $table->id();
                 $table->string('title');
-                $table->string('slug')->unique();
+                $table->string('slug', 191)->unique();
                 $table->string('location')->default('Jalle Payam, Bor County');
                 $table->date('start_date');
                 $table->date('end_date')->nullable();
