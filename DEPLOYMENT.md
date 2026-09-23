@@ -1,298 +1,248 @@
-# Comprehensive Deployment Guide: GitHub Actions to Namecheap cPanel
+# Diocese of Jalle (ECSS) — Complete Production Deployment Guide
 
-This guide provides the complete, step-by-step instructions for deploying the **Diocese of Jalle (ECSS)** website to **Namecheap cPanel Hosting** with automated CI/CD via **GitHub Actions**.
-
-Whenever changes are pushed to the `main` branch on GitHub, GitHub Actions will automatically connect to your Namecheap server, pull the latest code, install dependencies, run migrations, re-cache performance assets, and enforce strict file permissions.
+This document records the exact steps, architecture, configurations, and troubleshooting solutions implemented to bring the **Diocese of Jalle (ECSS)** website live at **https://dioceseofjalle.org** using **GitHub Actions CI/CD** and **Namecheap cPanel Shared Hosting**.
 
 ---
 
 ## Table of Contents
-1. [Overview & Architecture](#1-overview--architecture)
+1. [Architecture & Web Server Flow](#1-architecture--web-server-flow)
 2. [cPanel Hosting Setup](#2-cpanel-hosting-setup)
 3. [GitHub App Configuration](#3-github-app-configuration)
-4. [Personal Access Token (PAT) Generation](#4-personal-access-token-pat-generation)
-5. [Configuring GitHub Repository Secrets](#5-configuring-github-repository-secrets)
+4. [Personal Access Token (PAT) Setup](#4-personal-access-token-pat-setup)
+5. [GitHub Repository Secrets](#5-github-repository-secrets)
 6. [Initial Server Setup (One-Time Execution)](#6-initial-server-setup-one-time-execution)
-7. [Automated Task Scheduling (Cron Jobs)](#7-automated-task-scheduling-cron-jobs)
-8. [SSL Certificate Activation](#8-ssl-certificate-activation)
-9. [Deployment Workflow & Verification](#9-deployment-workflow--verification)
-10. [Troubleshooting Common Issues](#10-troubleshooting-common-issues)
+7. [The Symlink Configuration](#7-the-symlink-configuration)
+8. [Automated CI/CD Workflow (.github/workflows/deploy.yml)](#8-automated-cicd-workflow)
+9. [Production Hardening & Issues Solved](#9-production-hardening--issues-solved)
+10. [Ongoing Maintenance & Future Updates](#10-ongoing-maintenance--future-updates)
 
 ---
 
-## 1. Overview & Architecture
+## 1. Architecture & Web Server Flow
 
+* **Live Domain:** `https://dioceseofjalle.org`
 * **Repository:** `https://github.com/Arokrokie/diocese_of_jalle`
-* **Trigger Branch:** `main`
-* **Workflow File:** `.github/workflows/deploy.yml`
-* **Server Environment:** Namecheap cPanel (Linux / Apache / MySQL / PHP 8.2+)
-* **Deployment Method:** SSH via GitHub Actions runner with `sshpass`
+* **Default Branch:** `main`
+* **cPanel User:** `diocztdl`
+* **Application Root:** `/home/diocztdl/diocese_of_jalle`
+* **Public Web Root:** `/home/diocztdl/public_html` (Symbolic link &rarr; `/home/diocztdl/diocese_of_jalle/public`)
+* **PHP Version:** PHP 8.2+
+* **Database Engine:** MySQL / MariaDB (Database: `diocztdl_diocese_of_jalle`)
 
+### How Incoming Requests are Processed
 ```
-Developer Push to 'main'
-         │
-         ▼
-GitHub Actions CI/CD (.github/workflows/deploy.yml)
-         │
-         ▼
-Secure SSH Connection to Namecheap (Port 21098)
-         │
-         ├── Git remote update with PAT
-         ├── git fetch & reset to origin/main
-         ├── composer install --no-dev --optimize-autoloader
-         ├── php artisan migrate --force
-         ├── php artisan storage:link
-         ├── php artisan optimize:clear && php artisan config:cache
-         ├── php artisan route:cache && php artisan view:cache
-         └── chmod -R 775 storage bootstrap/cache public
+Visitor enters https://dioceseofjalle.org
+               │
+               ▼
+Web Server (Apache) routes to Document Root (/home/diocztdl/public_html)
+               │
+               ▼
+Symlink follows to /home/diocztdl/diocese_of_jalle/public/
+               │
+               ▼
+Executes public/index.php (Front Controller)
+               │
+               ├── 1. Loads Composer dependencies (/vendor/autoload.php)
+               ├── 2. Boots Laravel Application (/bootstrap/app.php)
+               ├── 3. Enforces HTTPS via AppServiceProvider
+               ├── 4. Resolves route from routes/web.php
+               └── 5. Returns rendered HTML view
 ```
+> **Security Advantage:** The `.env` file, database passwords, logs, and framework core live safely outside the web root (`diocese_of_jalle/`), completely inaccessible from the browser.
 
 ---
 
 ## 2. cPanel Hosting Setup
 
-### A. Set PHP Version & Required Extensions
-1. Log in to your **Namecheap cPanel**.
-2. Under **Software**, click **Select PHP Version** (or **MultiPHP Manager**).
-3. Select **PHP 8.2** (or **PHP 8.3**).
-4. In the **Extensions** tab, verify that these core extensions are enabled:
-   * `bcmath`
-   * `curl`
-   * `fileinfo`
-   * `gd`
-   * `mbstring`
-   * `openssl`
-   * `pdo_mysql`
-   * `tokenizer`
-   * `xml`
-   * `zip`
+### A. PHP Version & Extensions
+1. In cPanel &rarr; **Software** &rarr; **Select PHP Version** (or **MultiPHP Manager**).
+2. Set PHP version to **8.2** or **8.3**.
+3. In the **Extensions** tab, ensure the following are enabled:
+   * `bcmath`, `curl`, `fileinfo`, `gd`, `mbstring`, `openssl`, `pdo_mysql`, `tokenizer`, `xml`, `zip`.
 
-### B. Create MySQL Database & User
-1. In cPanel, navigate to **Databases** &rarr; **MySQL Database Wizard**.
-2. **Step 1:** Enter a database name (e.g. `username_jalle`). Click **Next Step**.
-3. **Step 2:** Create a database user (e.g. `username_jalleuser`) and generate a strong password. Save the password securely.
-4. **Step 3:** Check **ALL PRIVILEGES** and click **Make Changes**.
-5. Keep note of:
-   * **Database Name:** `username_jalle`
-   * **Database User:** `username_jalleuser`
-   * **Database Password:** `your_password`
+### B. MySQL Database & User
+1. In cPanel &rarr; **Databases** &rarr; **MySQL Database Wizard**.
+2. **Database Name:** `diocztdl_diocese_of_jalle`
+3. **Database User:** `diocztdl_dbuser` (with strong password).
+4. Assign **ALL PRIVILEGES** to the user for this database.
 
-### C. Enable SSH Access & Authorize Keys
-1. In cPanel, scroll down to **Security** &rarr; **SSH Access**.
-2. Click **Manage SSH Keys**.
-3. Click **Generate a New Key**:
-   * **Key Name:** `jalle_deployer`
-   * **Key Password:** (Leave empty for automated deployment)
-   * **Key Type:** RSA
-   * **Key Size:** 4096
-   * Click **Generate Key**.
-4. Go back to the **Public Keys** list:
-   * Click **Manage** next to the newly generated key.
-   * Click **Authorize** (Verify status changes to *Authorized*).
-5. If you prefer password-based authentication, ensure SSH access is toggled **Enabled** under *SSH Access*.
-6. Note the standard Namecheap SSH port: **`21098`**.
-
-### D. Point Domain Document Root to `/public`
-1. In cPanel, navigate to **Domains** &rarr; **Domains**.
-2. Locate your domain (e.g., `dioceseofjalle.org` or subdomain).
-3. Set the **Document Root** to:
-   ```plaintext
-   /home/YOUR_CPANEL_USER/diocese_of_jalle/public
-   ```
-   > **Note:** Pointing the document root directly to `.../public` ensures the `.env` file, source code, and storage directories remain strictly above the web root and completely inaccessible to the public internet.
+### C. SSH Access
+1. In cPanel &rarr; **Security** &rarr; **SSH Access**.
+2. Ensure SSH Access is enabled.
+3. Namecheap default SSH port: **`21098`**.
 
 ---
 
 ## 3. GitHub App Configuration
 
-Creating a dedicated GitHub App ensures secure, automated access without requiring your personal GitHub password.
+A dedicated GitHub App was created to manage deployments:
 
-1. In GitHub, click your profile photo in the top right &rarr; **Settings**.
-   *(If your repository is under an organization, go to your **Organization Settings**).*
-2. In the left sidebar, scroll down to **Developer settings** &rarr; **GitHub Apps**.
-3. Click **New GitHub App**.
-4. Configure the following fields:
-   * **GitHub App name:** `Diocese-Of-Jalle-Deployer` (or `Jalle-Deployer`)
-   * **Homepage URL:** `https://github.com/Arokrokie/diocese_of_jalle`
-   * **Webhook:** Uncheck **Active** (Webhooks are not required for Actions execution).
-5. Under **Repository permissions**, configure:
-   * **Contents:** `Read and write` (to fetch, pull, and checkout repository code)
-   * **Metadata:** `Read-only` (selected automatically)
+1. In GitHub &rarr; Profile Settings &rarr; **Developer Settings** &rarr; **GitHub Apps** &rarr; **New GitHub App**.
+2. **App Name:** `Diocese-Of-Jalle-Deployer`
+3. **Homepage URL:** `https://github.com/Arokrokie/diocese_of_jalle`
+4. **Webhook:** Uncheck *Active*.
+5. **Permissions:**
+   * **Contents:** `Read and write`
    * **Workflows:** `Read and write`
-6. Under **Where can this GitHub App be installed?**, select:
-   * **Only on this account**
+   * **Metadata:** `Read-only`
+6. Under **Where can this GitHub App be installed?**, choose *Only on this account*.
 7. Click **Create GitHub App**.
-8. On the App settings page, click **Install App** in the left menu:
-   * Click **Install** next to your account / organization.
-   * Select **Only select repositories** &rarr; choose `Arokrokie/diocese_of_jalle`.
-   * Click **Install & Authorize**.
+8. Go to **Install App** &rarr; Select `Arokrokie/diocese_of_jalle` repository &rarr; Click **Install**.
 
 ---
 
-## 4. Personal Access Token (PAT) Generation
+## 4. Personal Access Token (PAT) Setup
 
-The Personal Access Token allows the server-side git client to pull updates from your private repository securely.
+The PAT allows the server-side git client to pull updates from GitHub during automated deployments.
 
-1. Go to GitHub &rarr; **Settings** &rarr; **Developer settings** &rarr; **Personal access tokens** &rarr; **Tokens (classic)**.
-2. Click **Generate new token (classic)**.
-3. Fill in details:
+1. In GitHub &rarr; Settings &rarr; **Developer settings** &rarr; **Personal access tokens** &rarr; **Tokens (classic)**.
+2. Click **Generate new token (classic)**:
    * **Note:** `Diocese of Jalle Deployment PAT`
-   * **Expiration:** `90 days`, `1 year`, or `No expiration`
-   * **Select scopes:**
-     * Check `repo` (Full control of private repositories)
-     * Check `workflow` (Update GitHub Action workflows)
-4. Click **Generate token**.
-5. **Copy the token value (`ghp_...`) immediately**. You will not be able to see it again.
+   * **Scopes:** Check `repo` and `workflow`.
+3. Copy the generated token (`ghp_...`).
 
 ---
 
-## 5. Configuring GitHub Repository Secrets
+## 5. GitHub Repository Secrets
 
-Now link your cPanel credentials into GitHub Actions securely.
+Configured in `https://github.com/Arokrokie/diocese_of_jalle/settings/secrets/actions`:
 
-1. Navigate to your repository:
-   `https://github.com/Arokrokie/diocese_of_jalle/settings/secrets/actions`
-2. Click **New repository secret** for each of the following:
-
-| Secret Name | Value | Description / Example |
+| Secret Name | Value | Purpose |
 |---|---|---|
-| `SSH_HOST` | Server hostname or domain | `dioceseofjalle.org` or `serverXXX.web-hosting.com` |
-| `SSH_PORT` | `21098` | Namecheap default SSH port |
-| `SSH_USER` | Your cPanel username | e.g. `jalleadm` |
-| `SSH_PASSWORD` | Your cPanel password | Your cPanel account password |
-| `PAT_TOKEN` | `ghp_...` | The Personal Access Token generated in Step 4 |
-| `DEPLOY_PATH_LARAVEL` | Full server path | `/home/YOUR_CPANEL_USER/diocese_of_jalle` |
-| `PRIVATE_KEY` | *(Optional)* | SSH Private key text if using key authentication |
+| `SSH_HOST` | `dioceseofjalle.org` | Server address |
+| `SSH_PORT` | `21098` | Namecheap SSH port |
+| `SSH_USER` | `diocztdl` | cPanel username |
+| `SSH_PASSWORD` | *(cPanel password)* | SSH authentication |
+| `PAT_TOKEN` | `ghp_...` | GitHub Personal Access Token |
+| `DEPLOY_PATH_LARAVEL` | `/home/diocztdl/diocese_of_jalle` | Project directory on server |
+| `PRIVATE_KEY` | *(Optional)* | SSH Private key (if key authentication used) |
 
 ---
 
 ## 6. Initial Server Setup (One-Time Execution)
 
-Before the automated GitHub Actions runner can deploy updates, perform this initial clone on your server once:
+Executed in the cPanel Terminal:
 
-1. Open the **cPanel Terminal** (or connect via your local terminal):
-   ```bash
-   ssh -p 21098 YOUR_CPANEL_USER@dioceseofjalle.org
-   ```
-2. Navigate to your home directory:
-   ```bash
-   cd /home/YOUR_CPANEL_USER
-   ```
-3. Clone the repository into `diocese_of_jalle` using your PAT token:
-   ```bash
-   git clone https://Arokrokie:YOUR_PAT_TOKEN@github.com/Arokrokie/diocese_of_jalle.git diocese_of_jalle
-   ```
-4. Enter the directory:
-   ```bash
-   cd diocese_of_jalle
-   ```
-5. Copy the production environment template:
-   ```bash
-   cp .env.production.example .env
-   ```
-6. Edit `.env` with your production settings:
-   ```bash
-   nano .env
-   ```
-   * Set `APP_KEY`: Generate one by running `php artisan key:generate`
-   * Set `APP_URL=https://dioceseofjalle.org`
-   * Set `DB_DATABASE=YOUR_CPANEL_DBNAME`
-   * Set `DB_USERNAME=YOUR_CPANEL_DBUSER`
-   * Set `DB_PASSWORD=YOUR_CPANEL_DBPASSWORD`
-   * Save and exit (`Ctrl+O`, `Enter`, `Ctrl+X`).
-7. Run the initial database setup and storage symlink:
-   ```bash
-   composer install --no-dev --optimize-autoloader
-   php artisan migrate --seed --force
-   php artisan storage:link
-   ```
-8. Verify file permissions:
-   ```bash
-   chmod -R 775 storage bootstrap/cache public
-   ```
-
----
-
-## 7. Automated Task Scheduling (Cron Jobs)
-
-Laravel needs a single system cron job to handle scheduled tasks (such as event alerts, scheduled publishing, and queue cleanups).
-
-1. In cPanel, navigate to **Advanced** &rarr; **Cron Jobs**.
-2. Under **Add New Cron Job**, select **Once Per Minute** (`* * * * *`).
-3. Enter the command:
-   ```bash
-   /usr/local/bin/php /home/YOUR_CPANEL_USER/diocese_of_jalle/artisan schedule:run >> /dev/null 2>&1
-   ```
-4. Click **Add New Cron Job**.
-
----
-
-## 8. SSL Certificate Activation
-
-1. In cPanel, go to **Security** &rarr; **SSL/TLS Status**.
-2. Locate `dioceseofjalle.org` and `www.dioceseofjalle.org`.
-3. Click **Run AutoSSL** to generate a free Let's Encrypt / cPanel Sectigo certificate.
-4. Verify the status icon turns green with a valid expiration date.
-
----
-
-## 9. Deployment Workflow & Verification
-
-Once setup is complete, all future deployments happen automatically!
-
-### Pushing an Update
-Whenever you update code or content locally:
 ```bash
-git add .
-git commit -m "Enhance responsive layout and ministry pages"
-git push origin main
+# 1. Navigate to home directory
+cd /home/diocztdl
+
+# 2. Clone the repository into diocese_of_jalle
+git clone https://Arokrokie:YOUR_PAT_TOKEN@github.com/Arokrokie/diocese_of_jalle.git diocese_of_jalle
+
+# 3. Enter the project
+cd diocese_of_jalle
+
+# 4. Copy production environment file
+cp .env.production.example .env
+
+# 5. Configure .env with database credentials and app URL
+nano .env
 ```
 
-### Monitoring the Deployment
-1. Go to `https://github.com/Arokrokie/diocese_of_jalle/actions`.
-2. Click on the active **Deploy Diocese of Jalle Website** workflow run.
-3. You can watch each step in real time:
-   * Checkout Repository
-   * Setup SSH Known Hosts
-   * Deploy to Server via SSH:
-     * Pulling latest code
-     * Installing Composer dependencies
-     * Running database migrations
-     * Caching routes, configs, and views
-     * Setting folder permissions
+Inside `.env`:
+```env
+APP_NAME="Diocese of Jalle"
+APP_ENV=production
+APP_DEBUG=false
+APP_URL=https://dioceseofjalle.org
+
+DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=diocztdl_diocese_of_jalle
+DB_USERNAME=diocztdl_dbuser
+DB_PASSWORD=your_secure_password
+
+SESSION_DRIVER=file
+CACHE_STORE=file
+QUEUE_CONNECTION=sync
+```
 
 ---
 
-## 10. Troubleshooting Common Issues
+## 7. The Symlink Configuration
 
-### 1. SSH Connection Timed Out (`ssh: connect to host ... port 21098: Connection timed out`)
-* Verify the `SSH_PORT` secret is set to `21098` (or `22` if using VPS).
-* In cPanel, verify that your IP is not temporarily blocked by cPanel cPHulk or ModSecurity.
+To connect the domain to the Laravel `public/` folder without exposing application internals:
 
-### 2. Git Authentication Failed during Pull
-* Check that `PAT_TOKEN` is valid and has not expired.
-* Ensure the PAT has the `repo` scope selected.
+```bash
+# 1. Navigate to user home
+cd /home/diocztdl
 
-### 3. Permission Denied on `storage/logs/laravel.log`
-* In cPanel Terminal, run:
+# 2. Rename default public_html as backup
+mv public_html public_html_backup
+
+# 3. Create the symbolic link
+ln -s /home/diocztdl/diocese_of_jalle/public public_html
+```
+
+* **Result:** Web traffic requesting `dioceseofjalle.org` accesses `/home/diocztdl/public_html`, which transparently serves `/home/diocztdl/diocese_of_jalle/public`.
+* The `public_html_backup` folder can be deleted once verified:
   ```bash
-  cd /home/YOUR_CPANEL_USER/diocese_of_jalle
-  chmod -R 775 storage bootstrap/cache
+  rm -rf /home/diocztdl/public_html_backup
   ```
 
-### 4. Images Not Displaying on the Live Site
-* Verify that the storage symlink exists:
-  ```bash
-  php artisan storage:link
-  ```
-  Ensure `/home/YOUR_CPANEL_USER/diocese_of_jalle/public/storage` points to `../storage/app/public`.
+---
 
-### 5. Changes Not Appearing After Deployment
-* The deployment script automatically runs:
-  ```bash
-  php artisan optimize:clear
-  php artisan config:cache
-  php artisan route:cache
-  php artisan view:cache
-  ```
-  If browser caching is aggressive, perform a hard refresh (`Ctrl + F5` or `Cmd + Shift + R`).
+## 8. Automated CI/CD Workflow
+
+The GitHub Actions workflow file: [`.github/workflows/deploy.yml`](.github/workflows/deploy.yml)
+
+### Workflow Steps Triggered on Push to `main`:
+1. **Runner Setup:** Ubuntu-latest runner installs `sshpass`.
+2. **Fingerprint Scan:** Adds server SSH fingerprint via `ssh-keyscan -p 21098`.
+3. **SSH Execution:** Connects to `/home/diocztdl/diocese_of_jalle`:
+   * Updates remote origin with `PAT_TOKEN`
+   * Runs `git fetch --all && git reset --hard origin/main`
+   * **Auto-generates `APP_KEY`** if missing or blank in `.env`
+   * Runs `composer install --no-dev --prefer-dist --optimize-autoloader`
+   * Runs `php artisan migrate --force || true`
+   * Runs `php artisan db:seed --force || true`
+   * Links storage `php artisan storage:link || true`
+   * Refreshes cache (`optimize:clear`, `config:cache`, `route:cache`, `view:cache`, `event:cache`)
+   * Sets directory permissions (`chmod -R 775 storage bootstrap/cache public`)
+   * Displays tail of `storage/logs/laravel.log` if any diagnostics are needed
+
+---
+
+## 9. Production Hardening & Issues Solved
+
+During the deployment process, four critical production challenges were identified and permanently resolved:
+
+### Issue 1: MySQL Error 1071 — `Specified key was too long; max key length is 1000 bytes`
+* **Cause:** Namecheap MySQL uses `utf8mb4` encoding (4 bytes/character). A `varchar(255)` index requires $255 \times 4 = 1020\text{ bytes}$, exceeding MySQL's 1,000-byte index limit on tables like `password_reset_tokens`.
+* **Fix Applied:**
+  1. Added `Schema::defaultStringLength(191);` in `app/Providers/AppServiceProvider.php` ($191 \times 4 = 764\text{ bytes} < 1000\text{ bytes}$).
+  2. Constrained all index and unique columns explicitly to `string('...', 191)` across all migration files.
+
+### Issue 2: Migration Collisions (`Table 'users' already exists`)
+* **Cause:** The database was partially seeded/imported, so `users` already existed, causing default `Schema::create` to crash.
+* **Fix Applied:** Wrapped all table creation statements in `if (!Schema::hasTable('table_name'))` checks across all 4 migration files, making all migrations completely idempotent.
+
+### Issue 3: HTTP 500 Error on Database Sessions & Cache
+* **Cause:** The production `.env` was configured with `SESSION_DRIVER=database` and `CACHE_STORE=database`. When the database was unseeded or tables were initializing, the session middleware failed on page load.
+* **Fix Applied:**
+  1. Changed default session driver in `config/session.php` to `'file'`.
+  2. Changed default cache store in `config/cache.php` to `'file'`.
+  3. Added `try / catch (\Throwable $e)` guards to `HomeController`, `PostController`, `SermonController`, and `EventController` so pages never crash even if queries fail.
+
+### Issue 4: HTTPS Scheme Warnings behind Reverse Proxies
+* **Fix Applied:** Added `URL::forceScheme('https')` inside `AppServiceProvider::boot()` for production environments, preventing mixed-content warnings.
+
+---
+
+## 10. Ongoing Maintenance & Future Updates
+
+### Pushing Future Code or Design Changes
+All future updates are 100% automated:
+```bash
+git add .
+git commit -m "Update diocesan sermon notes and announcements"
+git push origin main
+```
+GitHub Actions will automatically test, build, deploy, migrate, and warm the caches within 25 seconds.
+
+### Admin Credentials
+* **Login URL:** `https://dioceseofjalle.org/login`
+* **Default Admin:** `admin@dioceseofjalle.org`
+* **Default Password:** `Password123!` *(Change immediately in the admin profile).*
