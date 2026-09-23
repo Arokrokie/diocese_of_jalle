@@ -1,0 +1,18 @@
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+
+    # Prevent loop if already in public
+    RewriteRule ^$ public/index.php [L]
+    RewriteRule ^((?!public/).*)$ public/$1 [L]
+</IfModule>
+
+# Block access to root sensitive files
+<FilesMatch "^\.(env|git|editorconfig|gitattributes|gitignore)">
+    Order allow,deny
+    Deny from all
+</FilesMatch>
+
+<FilesMatch "(composer\.(json|lock)|package\.(json|lock)|phpunit\.xml|artisan|vite\.config\.js)">
+    Order allow,deny
+    Deny from all
+</FilesMatch>

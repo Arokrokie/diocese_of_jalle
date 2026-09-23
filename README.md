@@ -19,6 +19,7 @@ Established in 2021 and fully operational since 2023 under the episcopal leaders
 - [Default Admin Credentials](#default-admin-credentials)
 - [Directory Structure](#directory-structure)
 - [Key Artisan Commands](#key-artisan-commands)
+- [Automated Deployment (CI/CD)](#automated-deployment-cicd)
 - [Support & Contact](#support--contact)
 
 ---
@@ -220,6 +221,16 @@ php artisan storage:link
 # Re-run all migrations and fresh database seeding
 php artisan migrate:fresh --seed
 ```
+
+---
+
+## Automated Deployment (CI/CD)
+
+The project includes a production-tested **GitHub Actions CI/CD** workflow (`.github/workflows/deploy.yml`) configured for automated deployment to **Namecheap cPanel / Linux Hosting** upon pushing to the `main` branch.
+
+For complete, step-by-step setup instructions—including GitHub App creation, Personal Access Token (PAT) generation, cPanel SSH configuration, repository secrets, and task scheduling:
+
+👉 **Please refer to the full guide: [DEPLOYMENT.md](DEPLOYMENT.md)**
 
 ---
 
