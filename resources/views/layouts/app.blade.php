@@ -3,11 +3,14 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>@yield('title', 'Welcome') - Diocese of Jalle | Episcopal Church of South Sudan (ECSS)</title>
+  <title>@if(Request::is('/'))Diocese of Jalle - Episcopal Church of South Sudan@elseif(trim($__env->yieldContent('title')) && trim($__env->yieldContent('title')) !== 'Diocese of Jalle - Episcopal Church of South Sudan')@yield('title') - Diocese of Jalle - Episcopal Church of South Sudan@else Diocese of Jalle - Episcopal Church of South Sudan@endif</title>
   <meta name="description" content="@yield('meta_description', 'Official web portal of the Diocese of Jalle, Jonglei Internal Province, Episcopal Church of South Sudan (ECSS).')">
 
   <!-- Favicon -->
-  <link rel="icon" type="image/png" sizes="32x32" href="{{ asset('favicon.ico') }}">
+  <link rel="icon" type="image/png" sizes="32x32" href="{{ asset('favicon-32x32.png') }}">
+  <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('favicon-16x16.png') }}">
+  <link rel="apple-touch-icon" sizes="180x180" href="{{ asset('apple-touch-icon.png') }}">
+  <link rel="shortcut icon" href="{{ asset('favicon.ico') }}">
 
   <!-- Plugins Stylesheets -->
   <link rel="stylesheet" href="{{ asset('assets/css/plugins/bootstrap.min.css') }}">
@@ -642,8 +645,12 @@
   <!-- Mobile Navigation -->
   <aside class="sigma_aside sigma_aside-left">
     <div class="d-flex justify-content-between align-items-center mb-4 pb-3 border-bottom">
-      <a class="navbar-brand m-0" href="{{ route('home') }}">
-        <img loading="lazy" src="{{ asset('assets/img/logo.webp') }}" alt="Diocese of Jalle" style="max-height: 46px;">
+      <a class="navbar-brand m-0 d-flex align-items-center text-decoration-none" href="{{ route('home') }}">
+        <img loading="lazy" src="{{ asset('assets/img/diocese/crest_transparent.png') }}" alt="Diocese of Jalle Crest" style="height: 44px; width: auto; object-fit: contain;" class="me-2">
+        <div class="d-flex flex-column text-start">
+          <span class="fw-bold" style="font-size: 15px; line-height: 1.1; color: #002244; font-family: 'Poppins', sans-serif;">DIOCESE OF JALLE</span>
+          <span style="font-size: 10px; color: #6c757d; font-weight: 600; text-transform: uppercase;">ECSS - Jonglei</span>
+        </div>
       </a>
       <button type="button" class="aside-close-btn" aria-label="Close navigation menu">
         <i class="fal fa-times"></i>
@@ -656,6 +663,7 @@
         <a href="#">About</a>
         <ul class="sub-menu">
           <li class="menu-item"><a href="{{ route('about') }}">Our Diocese & Mission</a></li>
+          <li class="menu-item"><a href="{{ route('churches') }}">Churches & Parishes</a></li>
           <li class="menu-item"><a href="{{ route('leadership') }}">Leadership & Clergy</a></li>
           <li class="menu-item"><a href="{{ route('bishop') }}">Bishop's Profile</a></li>
           <li class="menu-item"><a href="{{ route('faq') }}">Frequently Asked Questions</a></li>
@@ -674,7 +682,7 @@
         <a href="#">Word & Scripture</a>
         <ul class="sub-menu">
           <li class="menu-item"><a href="{{ route('sermons') }}">Sermons & Messages</a></li>
-          <li class="menu-item"><a href="{{ route('bible') }}">Bible Archive & Readings</a></li>
+          <li class="menu-item"><a href="{{ route('gallery') }}">Photo Gallery</a></li>
         </ul>
       </li>
       <li class="menu-item"><a href="{{ route('events') }}">Events & Synods</a></li>
@@ -725,8 +733,12 @@
         <div class="container-fluid">
           <nav class="navbar">
             <div class="sigma_logo-wrapper">
-              <a class="navbar-brand" href="{{ route('home') }}">
-                <img loading="lazy" src="{{ asset('assets/img/logo.webp') }}" alt="Diocese of Jalle Logo" style="max-height: 58px;">
+              <a class="navbar-brand d-flex align-items-center text-decoration-none py-1" href="{{ route('home') }}">
+                <img loading="lazy" src="{{ asset('assets/img/diocese/crest_transparent.png') }}" alt="Diocese of Jalle Crest" style="height: 54px; width: auto; object-fit: contain;" class="me-2">
+                <div class="d-flex flex-column text-start">
+                  <span class="fw-bold text-dark-navy" style="font-size: 19px; line-height: 1.1; color: #002244; letter-spacing: 0.5px; font-family: 'Poppins', sans-serif;">DIOCESE OF JALLE</span>
+                  <span class="text-uppercase text-muted" style="font-size: 11px; letter-spacing: 0.8px; color: #6c757d; font-weight: 600;">Episcopal Church of South Sudan</span>
+                </div>
               </a>
             </div>
 
@@ -736,6 +748,7 @@
                 <a href="{{ route('about') }}">About</a>
                 <ul class="sub-menu">
                   <li class="menu-item"><a href="{{ route('about') }}">Our Diocese & Mission</a></li>
+                  <li class="menu-item"><a href="{{ route('churches') }}">Churches & Parishes</a></li>
                   <li class="menu-item"><a href="{{ route('leadership') }}">Leadership & Clergy</a></li>
                   <li class="menu-item"><a href="{{ route('bishop') }}">Bishop's Profile</a></li>
                   <li class="menu-item"><a href="{{ route('faq') }}">Frequently Asked Questions</a></li>
@@ -754,8 +767,7 @@
                 <a href="{{ route('sermons') }}">Word & Media</a>
                 <ul class="sub-menu">
                   <li class="menu-item"><a href="{{ route('sermons') }}">Sermons & Messages</a></li>
-                  
-                  <li class="menu-item"><a href="{{ route('bible') }}">Bible Archive</a></li>
+                  <li class="menu-item"><a href="{{ route('gallery') }}">Photo Gallery</a></li>
                 </ul>
               </li>
               <li class="menu-item"><a href="{{ route('events') }}">Events</a></li>
@@ -797,7 +809,13 @@
         <div class="row">
           <div class="col-xl-4 col-lg-4 col-md-6 col-6 footer-widget">
             <div class="sigma_footer-logo mb-3">
-              <img loading="lazy" src="{{ asset('assets/img/logo-white.webp') }}" alt="Diocese of Jalle" style="max-height: 48px;">
+              <a class="d-flex align-items-center text-decoration-none" href="{{ route('home') }}">
+                <img loading="lazy" src="{{ asset('assets/img/diocese/crest_transparent.png') }}" alt="Diocese of Jalle" style="height: 48px; width: auto;" class="me-2">
+                <div class="d-flex flex-column text-start">
+                  <span class="fw-bold text-white" style="font-size: 17px; line-height: 1.1; font-family: 'Poppins', sans-serif;">DIOCESE OF JALLE</span>
+                  <span class="text-uppercase text-white-50" style="font-size: 10.5px; letter-spacing: 0.8px; font-weight: 500;">Episcopal Church of South Sudan</span>
+                </div>
+              </a>
             </div>
             <p class="m-0 text-white-50 fs-13">
               The Diocese of Jalle is an Episcopal Area Diocese within the Jonglei Internal Province of the Episcopal Church of South Sudan (ECSS). Proclaiming Christ, building sustainable peace, and empowering communities.
@@ -824,7 +842,7 @@
               <li> <a href="{{ route('ministry.detail') }}">Mothers' Union</a> </li>
               <li> <a href="{{ route('ministries') }}">Youth Ministry</a> </li>
               <li> <a href="{{ route('services') }}">Worship Services</a> </li>
-              <li> <a href="{{ route('bible') }}">Bible Archive</a> </li>
+              <li> <a href="{{ route('gallery') }}">Photo Gallery</a> </li>
               <li> <a href="{{ route('donation') }}">Support Mission</a> </li>
               <li> <a href="{{ route('contact') }}">Prayer Request</a> </li>
             </ul>

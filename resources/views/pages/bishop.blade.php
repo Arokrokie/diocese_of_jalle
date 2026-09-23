@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Bishop Abraham Matiop Deng Kechdit - Bishop's Profile')
+@section('title', "Bishop Abraham Matiop Deng Kechdit - Bishop's Profile")
 
 @section('content')
 <!-- Subheader Start -->

@@ -122,8 +122,20 @@
   });
 
   $(".banner-3 .sigma_banner-slider, .banner-1 .sigma_banner-slider, .banner-2 .sigma_banner-slider").slick({
-    slidesToShow: 1, slidesToScroll: 1, arrows: true, dots: false, autoplay: false,
-    responsive: [{ breakpoint: 991, settings: { arrows: false } }]
+    slidesToShow: 1,
+    slidesToScroll: 1,
+    arrows: true,
+    dots: true,
+    autoplay: true,
+    autoplaySpeed: 5000,
+    speed: 900,
+    fade: true,
+    cssEase: 'ease-in-out',
+    infinite: true,
+    pauseOnHover: true,
+    prevArrow: '<div class="slick-prev slick-arrow"><i class="far fa-chevron-left"></i></div>',
+    nextArrow: '<div class="slick-next slick-arrow"><i class="far fa-chevron-right"></i></div>',
+    responsive: [{ breakpoint: 991, settings: { arrows: false, dots: true } }]
   });
 
   $(".sigma_product-slider").slick({

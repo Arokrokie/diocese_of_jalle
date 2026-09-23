@@ -35,20 +35,10 @@
           <input type="date" name="sermon_date" class="form-control" value="{{ old('sermon_date', date('Y-m-d')) }}" required>
         </div>
 
-        <div class="col-md-6">
-          <label class="form-label fw-semibold">Audio Stream URL (Optional)</label>
-          <input type="url" name="audio_url" class="form-control" value="{{ old('audio_url') }}" placeholder="https://...">
-        </div>
-
-        <div class="col-md-6">
-          <label class="form-label fw-semibold">Video Link (YouTube/Vimeo - Optional)</label>
-          <input type="url" name="video_url" class="form-control" value="{{ old('video_url') }}" placeholder="https://youtube.com/watch?v=...">
-        </div>
-
         <div class="col-md-12">
           <label class="form-label fw-semibold">Thumbnail / Cover Image</label>
           <input type="file" name="image_file" class="form-control" accept="image/*">
-          <small class="text-muted">Accepted formats: JPEG, PNG, WebP (Max 5MB)</small>
+          <small class="text-muted">Accepted formats: JPEG, PNG, WebP (Max 5MB). Leave blank to use the default bible image.</small>
         </div>
 
         <div class="col-12">
@@ -58,7 +48,7 @@
 
         <div class="col-12">
           <label class="form-label fw-semibold">Sermon Transcript / Study Notes</label>
-          <textarea name="notes" class="form-control" rows="8" placeholder="Detailed outline, scripture study points, or full transcript...">{{ old('notes') }}</textarea>
+          <textarea name="notes" class="form-control rich-editor" rows="10" placeholder="Detailed outline, scripture study points, or full transcript...">{{ old('notes') }}</textarea>
         </div>
 
         <div class="col-12 pt-3 border-top d-flex gap-2">

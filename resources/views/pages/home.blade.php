@@ -180,18 +180,18 @@
           <div class="col-lg-6 col-md-6">
             <div class="sigma_cta lg secondary-bg rounded h-100 p-4 d-flex align-items-center">
               <div>
-                <span class="fw-600 custom-primary d-block mb-1 fs-13 text-uppercase"><i class="fas fa-praying-hands me-2"></i> Need Pastoral Prayer or Support?</span>
-                <h4 class="text-white mb-2 fs-20"><a href="mailto:info@dioceseofjalle.org" class="text-white text-decoration-none">info@dioceseofjalle.org</a></h4>
-                <p class="text-white-50 mb-0 fs-13">Our pastoral team is available for prayer, hospital visitation, and spiritual counsel.</p>
+                <span class="fw-600 custom-primary d-block mb-1 text-uppercase"><i class="fas fa-praying-hands me-2"></i> Need Pastoral Prayer or Support?</span>
+                <h4 class="text-white mb-2"><a href="mailto:info@dioceseofjalle.org" class="text-white text-decoration-none">info@dioceseofjalle.org</a></h4>
+                <p class="text-white-50 mb-0">Our pastoral team is available for prayer, hospital visitation, and spiritual counsel.</p>
               </div>
             </div>
           </div>
           <div class="col-lg-6 col-md-6">
             <div class="sigma_cta lg primary-bg rounded h-100 p-4 d-flex align-items-center justify-content-between flex-wrap gap-2">
               <div>
-                <span class="fw-600 text-white-50 d-block mb-1 fs-13 text-uppercase"><i class="fas fa-church me-2 text-white"></i> Diocesan Secretariat</span>
-                <h4 class="text-white mb-2 fs-20">Connect with the Diocesan Office</h4>
-                <p class="text-white-50 mb-0 fs-13">Reach the Bishop's Commissioner or Secretary of Diocese.</p>
+                <span class="fw-600 text-white-50 d-block mb-1 text-uppercase"><i class="fas fa-church me-2 text-white"></i> Diocesan Secretariat</span>
+                <h4 class="text-white mb-2">Connect with the Diocesan Office</h4>
+                <p class="text-white-50 mb-0">Reach the Bishop's Commissioner or Secretary of Diocese.</p>
               </div>
               <div>
                 <a href="{{ route('contact') }}" class="btn btn-light btn-sm text-primary fw-bold text-nowrap px-3 py-2 shadow-sm">Contact Us <i class="far fa-arrow-right ms-1"></i></a>
@@ -551,7 +551,7 @@
                     <p class="m-0 text-muted mb-3 fs-14">A profound pastoral message delivered by Rt. Rev. Bishop Abraham Matiop Deng Kechdit on Romans 12:9-21 — urging our community to cling to what is good, overcome evil with love, and preserve peace in Jonglei.</p>
                     <div class="btn-pair mt-3">
                       <a href="{{ route('sermons') }}" class="sigma_btn-custom">Browse All Sermons</a>
-                      <a href="{{ route('bible') }}" class="sigma_btn-custom light">Bible Archive</a>
+                      <a href="{{ route('gallery') }}" class="sigma_btn-custom light">Photo Gallery</a>
                     </div>
                   </div>
                 </div>

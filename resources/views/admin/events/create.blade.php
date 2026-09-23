@@ -48,7 +48,7 @@
 
         <div class="col-12">
           <label class="form-label fw-semibold">Event Description & Program</label>
-          <textarea name="description" class="form-control" rows="6" placeholder="Details regarding schedule, accommodation, registration, and theme...">{{ old('description') }}</textarea>
+          <textarea name="description" class="form-control rich-editor" rows="6" placeholder="Details regarding schedule, accommodation, registration, and theme...">{{ old('description') }}</textarea>
         </div>
 
         <div class="col-12">

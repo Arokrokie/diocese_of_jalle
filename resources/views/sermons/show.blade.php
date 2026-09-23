@@ -9,7 +9,7 @@
     <div class="sigma_subheader-inner">
       <div class="sigma_subheader-text">
         <h1 class="text-white">{{ $sermon->title }}</h1>
-        <p class="blockquote light">{{ $sermon->preacher }} • {{ $sermon->sermon_date ? $sermon->sermon_date->format('F d, Y') : '' }}</p>
+        <p class="blockquote light">{{ $sermon->preacher }} &bull; {{ $sermon->sermon_date ? $sermon->sermon_date->format('F d, Y') : '' }}</p>
       </div>
       <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
@@ -29,11 +29,14 @@
     <div class="row">
       <div class="col-lg-8">
         <div class="sermon-details">
-          @if($sermon->image)
-            <div class="sermon-thumbnail mb-4">
-              <img src="{{ asset('storage/' . $sermon->image) }}" alt="{{ $sermon->title }}" class="w-100 rounded shadow-sm">
-            </div>
-          @endif
+          <!-- Thumbnail (default to open-bible if none uploaded) -->
+          <div class="sermon-thumbnail mb-4">
+            @if($sermon->image)
+              <img src="{{ asset('storage/' . $sermon->image) }}" alt="{{ $sermon->title }}" class="w-100 rounded shadow-sm" style="max-height:340px; object-fit:cover;">
+            @else
+              <img src="{{ asset('assets/img/diocese/open-bible.webp') }}" alt="Open Bible" class="w-100 rounded shadow-sm" style="max-height:340px; object-fit:cover;">
+            @endif
+          </div>
 
           <div class="p-4 bg-light rounded border mb-4">
             <div class="row g-3">
@@ -54,25 +57,6 @@
             </div>
           </div>
 
-          @if($sermon->audio_url)
-            <div class="p-3 bg-white border rounded shadow-sm mb-4">
-              <h6 class="mb-2"><i class="fas fa-headphones text-primary me-2"></i> Audio Sermon Stream</h6>
-              <audio controls class="w-100">
-                <source src="{{ $sermon->audio_url }}" type="audio/mpeg">
-                Your browser does not support the audio element.
-              </audio>
-            </div>
-          @endif
-
-          @if($sermon->video_url)
-            <div class="p-3 bg-white border rounded shadow-sm mb-4">
-              <h6 class="mb-2"><i class="fas fa-video text-danger me-2"></i> Watch Video Stream</h6>
-              <a href="{{ $sermon->video_url }}" target="_blank" class="btn btn-danger btn-sm">
-                <i class="fas fa-play me-1"></i> Watch on External Video Player
-              </a>
-            </div>
-          @endif
-
           @if($sermon->description)
             <div class="sermon-description mb-4">
               <h5 class="mb-3">Message Overview</h5>
@@ -84,9 +68,9 @@
 
           @if($sermon->notes)
             <div class="sermon-notes pt-4 border-top mb-5">
-              <h5 class="mb-3">Sermon Notes & Scripture Study</h5>
+              <h5 class="mb-3">Sermon Notes &amp; Scripture Study</h5>
               <div class="p-4 bg-light rounded border" style="line-height: 1.85; font-size: 15px;">
-                {!! nl2br(e($sermon->notes)) !!}
+                {!! $sermon->notes !!}
               </div>
             </div>
           @endif

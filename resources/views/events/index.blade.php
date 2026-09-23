@@ -8,7 +8,7 @@
   <div class="container">
     <div class="sigma_subheader-inner">
       <div class="sigma_subheader-text">
-        <h1>Diocesan Events & Synods</h1>
+        <h1>Diocesan Events &amp; Synods</h1>
         <p class="blockquote light">Gatherings, assemblies, conferences, and fellowships of the Diocese of Jalle</p>
       </div>
       <nav aria-label="breadcrumb">
@@ -25,6 +25,33 @@
 <!-- Events List Start -->
 <div class="section section-padding">
   <div class="container">
+
+    <!-- Filter Tabs -->
+    <div class="d-flex align-items-center justify-content-between flex-wrap gap-3 mb-4">
+      <div>
+        <ul class="nav nav-pills gap-2">
+          <li class="nav-item">
+            <a class="nav-link {{ !request('status') || request('status') == 'all' ? 'active' : '' }}"
+               href="{{ route('events') }}">
+              All <span class="badge bg-white text-dark ms-1">{{ ($upcomingCount ?? 0) + ($completedCount ?? 0) }}</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link {{ request('status') == 'upcoming' ? 'active' : '' }}"
+               href="{{ route('events', ['status' => 'upcoming']) }}">
+              Upcoming <span class="badge bg-white text-dark ms-1">{{ $upcomingCount ?? 0 }}</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link {{ request('status') == 'completed' ? 'active' : '' }}"
+               href="{{ route('events', ['status' => 'completed']) }}">
+              Completed <span class="badge bg-white text-dark ms-1">{{ $completedCount ?? 0 }}</span>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+
     <div class="row">
       @forelse($events as $event)
         <div class="col-lg-4 col-md-6 mb-4">
@@ -35,9 +62,18 @@
               <img src="{{ asset('assets/img/diocese/clergy-full-group.jpeg') }}" alt="{{ $event->title }}" class="card-img-top" style="height: 220px; object-fit: cover;">
             @endif
             <div class="card-body p-4 d-flex flex-column flex-grow-1">
-              <div class="d-flex align-items-center text-muted small mb-2">
-                <i class="far fa-calendar-alt text-primary me-2"></i>
-                <span>{{ $event->start_date ? $event->start_date->format('M d, Y') : '' }}</span>
+              <div class="d-flex align-items-center justify-content-between mb-2">
+                <div class="d-flex align-items-center text-muted small">
+                  <i class="far fa-calendar-alt text-primary me-2"></i>
+                  <span>{{ $event->start_date ? $event->start_date->format('M d, Y') : '' }}</span>
+                </div>
+                @if(method_exists($event, 'getStatusLabelAttribute'))
+                  <span class="badge {{ $event->status_badge_class }}">{{ $event->status_label }}</span>
+                @elseif($event->start_date && $event->start_date->isPast())
+                  <span class="badge bg-secondary">Completed</span>
+                @else
+                  <span class="badge bg-success">Upcoming</span>
+                @endif
               </div>
               <h5 class="card-title mb-2">
                 <a href="{{ route('event.show', $event->slug) }}" class="text-dark text-decoration-none">{{ $event->title }}</a>
@@ -50,7 +86,7 @@
               </p>
               <div class="pt-3 border-top mt-auto">
                 <a href="{{ route('event.show', $event->slug) }}" class="fw-bold custom-primary fs-14">
-                  Event Details & Schedule <i class="far fa-arrow-right ms-1"></i>
+                  Event Details &amp; Schedule <i class="far fa-arrow-right ms-1"></i>
                 </a>
               </div>
             </div>
@@ -58,7 +94,9 @@
         </div>
       @empty
         <div class="col-12 text-center py-5">
-          <p class="text-muted">No events currently scheduled.</p>
+          <i class="fas fa-calendar-times fa-3x text-muted mb-3 d-block"></i>
+          <p class="text-muted">No events found for this filter. Check back soon for upcoming assemblies and synods.</p>
+          <a href="{{ route('events') }}" class="sigma_btn-custom mt-2">View All Events</a>
         </div>
       @endforelse
     </div>

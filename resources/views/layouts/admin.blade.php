@@ -4,7 +4,28 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>@yield('title', 'Admin Dashboard') - Diocese of Jalle Portal</title>
-  <link rel="icon" type="image/png" href="{{ asset('favicon.ico') }}">
+  <link rel="icon" type="image/png" sizes="32x32" href="{{ asset('favicon-32x32.png') }}">
+  <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('favicon-16x16.png') }}">
+  <link rel="apple-touch-icon" sizes="180x180" href="{{ asset('apple-touch-icon.png') }}">
+  <link rel="shortcut icon" href="{{ asset('favicon.ico') }}">
+  <!-- TinyMCE Rich Text Editor -->
+  <script src="https://cdn.jsdelivr.net/npm/tinymce@6/tinymce.min.js" referrerpolicy="origin"></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", function() {
+      if (typeof tinymce !== 'undefined') {
+        tinymce.init({
+          selector: 'textarea.rich-editor',
+          plugins: 'advlist autolink lists link image charmap preview anchor searchreplace visualblocks code fullscreen insertdatetime table help wordcount',
+          toolbar: 'undo redo | blocks | bold italic underline forecolor backcolor | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | removeformat | table link | code fullscreen',
+          menubar: 'file edit view insert format tools table',
+          height: 380,
+          branding: false,
+          promotion: false,
+          content_style: 'body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif; font-size: 15px; line-height: 1.6; color: #333; }'
+        });
+      }
+    });
+  </script>
   <link rel="stylesheet" href="{{ asset('assets/css/plugins/bootstrap.min.css') }}">
   <link rel="stylesheet" href="{{ asset('assets/css/plugins/font-awesome.min.css') }}">
   <style>

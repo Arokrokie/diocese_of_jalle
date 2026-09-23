@@ -50,7 +50,7 @@
 
         <div class="col-12">
           <label class="form-label fw-semibold">Full Article Content <span class="text-danger">*</span></label>
-          <textarea name="content" class="form-control" rows="10" placeholder="Type full story or pastoral update here..." required>{{ old('content') }}</textarea>
+          <textarea name="content" class="form-control rich-editor" rows="10" placeholder="Type full story or pastoral update here..." required>{{ old('content') }}</textarea>
         </div>
 
         <div class="col-12">

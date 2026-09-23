@@ -123,5 +123,81 @@ class DatabaseSeeder extends Seeder
                 'is_featured' => true,
             ]
         );
+
+        // Completed / Past Event for testing status badges
+        Event::updateOrCreate(
+            ['slug' => 'jonglei-peace-reconciliation-summit-2026'],
+            [
+                'title' => 'Jonglei Peace & Community Reconciliation Summit',
+                'location' => 'Jalle Payam Peace Center',
+                'start_date' => now()->subDays(30),
+                'end_date' => now()->subDays(28),
+                'description' => 'A historic gathering of church leaders, payam chiefs, and youth representatives to foster inter-community harmony, forgiveness, and lasting peace.',
+                'image' => 'assets/img/diocese/fellowship-assembly.jpeg',
+                'contact_person' => 'Peace & Reconciliation Desk',
+                'is_featured' => false,
+            ]
+        );
+
+        // Initial Gallery Photos
+        \App\Models\Gallery::updateOrCreate(
+            ['title' => 'Bishop Abraham Matiop with Diocesan Clergy Assembly'],
+            [
+                'category' => 'Episcopal Ministry',
+                'image' => 'assets/img/diocese/bishop-and-clergy.jpeg',
+                'caption' => 'Rt. Rev. Abraham Matiop Deng Kechdit presiding over the diocesan pastoral clergy assembly in Jalle.',
+                'event_date' => now()->subDays(15),
+                'is_published' => true,
+                'sort_order' => 1,
+            ]
+        );
+
+        \App\Models\Gallery::updateOrCreate(
+            ['title' => 'Mothers\' Union Prayer & Fellowship Day'],
+            [
+                'category' => 'Mothers\' Union',
+                'image' => 'assets/img/diocese/mothers-union.jpeg',
+                'caption' => 'Mothers\' Union members gathered in praise, prayer, and family discipleship.',
+                'event_date' => now()->subDays(25),
+                'is_published' => true,
+                'sort_order' => 2,
+            ]
+        );
+
+        \App\Models\Gallery::updateOrCreate(
+            ['title' => 'Parish Worship and Confirmation Candidates'],
+            [
+                'category' => 'Worship & Choir',
+                'image' => 'assets/img/diocese/choir-and-procession.jpeg',
+                'caption' => 'Choir procession leading the Sunday Eucharist service in Jalle Payam.',
+                'event_date' => now()->subDays(40),
+                'is_published' => true,
+                'sort_order' => 3,
+            ]
+        );
+
+        \App\Models\Gallery::updateOrCreate(
+            ['title' => 'Youth Fellowship & Scripture Outreach'],
+            [
+                'category' => 'Youth',
+                'image' => 'assets/img/diocese/youth-fellowship.jpeg',
+                'caption' => 'Young people gathered for youth fellowship, praise songs, and Bible study.',
+                'event_date' => now()->subDays(50),
+                'is_published' => true,
+                'sort_order' => 4,
+            ]
+        );
+
+        \App\Models\Gallery::updateOrCreate(
+            ['title' => 'Parish Congregation Gathered in Fellowship'],
+            [
+                'category' => 'Community Fellowship',
+                'image' => 'assets/img/diocese/fellowship-assembly.jpeg',
+                'caption' => 'The faithful gathered for outdoor Sunday worship and parish prayers under the shade of trees.',
+                'event_date' => now()->subDays(60),
+                'is_published' => true,
+                'sort_order' => 5,
+            ]
+        );
     }
 }

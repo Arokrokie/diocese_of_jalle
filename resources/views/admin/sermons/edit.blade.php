@@ -36,16 +36,6 @@
           <input type="date" name="sermon_date" class="form-control" value="{{ old('sermon_date', $sermon->sermon_date ? $sermon->sermon_date->format('Y-m-d') : '') }}" required>
         </div>
 
-        <div class="col-md-6">
-          <label class="form-label fw-semibold">Audio Stream URL (Optional)</label>
-          <input type="url" name="audio_url" class="form-control" value="{{ old('audio_url', $sermon->audio_url) }}">
-        </div>
-
-        <div class="col-md-6">
-          <label class="form-label fw-semibold">Video Link (YouTube/Vimeo - Optional)</label>
-          <input type="url" name="video_url" class="form-control" value="{{ old('video_url', $sermon->video_url) }}">
-        </div>
-
         <div class="col-md-12">
           <label class="form-label fw-semibold">Thumbnail / Cover Image</label>
           @if($sermon->image)
@@ -65,7 +55,7 @@
 
         <div class="col-12">
           <label class="form-label fw-semibold">Sermon Transcript / Study Notes</label>
-          <textarea name="notes" class="form-control" rows="8">{{ old('notes', $sermon->notes) }}</textarea>
+          <textarea name="notes" class="form-control rich-editor" rows="10">{{ old('notes', $sermon->notes) }}</textarea>
         </div>
 
         <div class="col-12 pt-3 border-top d-flex gap-2">
