@@ -65,6 +65,119 @@
     .page-inner .sigma_header.header-4 .desktop-toggler span {
       background-color: #ffffff !important;
     }
+
+    /* ========================================================
+       PREVENT LOGO AND NAVBAR COLLISION ACROSS ALL VIEWPORTS
+       ======================================================== */
+    .sigma_logo-wrapper {
+      flex-shrink: 0 !important;
+      display: flex !important;
+      align-items: center !important;
+    }
+    .navbar-brand {
+      display: flex !important;
+      align-items: center !important;
+      white-space: nowrap !important;
+    }
+    .brand-title {
+      font-size: 18px !important;
+      line-height: 1.15 !important;
+      font-weight: 700 !important;
+      font-family: 'Poppins', sans-serif !important;
+      letter-spacing: 0.5px !important;
+      color: #002244 !important;
+    }
+    .brand-subtitle {
+      font-size: 10px !important;
+      line-height: 1.2 !important;
+      letter-spacing: 0.6px !important;
+      font-weight: 600 !important;
+      text-transform: uppercase !important;
+      color: #6c757d !important;
+    }
+    .page-inner .sigma_header.header-4:not(.sticky) .brand-title {
+      color: #ffffff !important;
+    }
+    .page-inner .sigma_header.header-4:not(.sticky) .brand-subtitle {
+      color: rgba(255, 255, 255, 0.85) !important;
+    }
+
+    @media (min-width: 992px) and (max-width: 1399px) {
+      .sigma_header.header-4 .navbar-nav > .menu-item > a {
+        padding: 0 9px !important;
+        font-size: 13.5px !important;
+      }
+      .brand-title {
+        font-size: 16px !important;
+      }
+      .brand-subtitle {
+        font-size: 9px !important;
+      }
+    }
+
+    @media (min-width: 992px) and (max-width: 1199px) {
+      .sigma_header.header-4 .navbar-nav > .menu-item > a {
+        padding: 0 6px !important;
+        font-size: 13px !important;
+      }
+      .brand-title {
+        font-size: 15px !important;
+      }
+      .brand-subtitle {
+        font-size: 8.5px !important;
+      }
+      .sigma_header-controls .sigma_btn-custom {
+        display: none !important; /* Hide button in tight desktop range to avoid any navbar collision */
+      }
+    }
+
+    @media (max-width: 991px) {
+      .sigma_logo-wrapper {
+        max-width: calc(100% - 60px) !important;
+      }
+      .brand-title {
+        font-size: 15px !important;
+      }
+      .brand-subtitle {
+        font-size: 8.5px !important;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .sigma_logo-wrapper {
+        max-width: calc(100% - 50px) !important;
+      }
+      .navbar-brand img {
+        height: 36px !important;
+      }
+      .brand-title {
+        font-size: 13.5px !important;
+      }
+      .brand-subtitle {
+        font-size: 7.5px !important;
+      }
+    }
+
+    /* Universal Full Image Display (no empty balance space) */
+    .img-full-display {
+      width: 100% !important;
+      height: 100% !important;
+      object-fit: cover !important;
+      object-position: center 25% !important;
+      display: block !important;
+    }
+
+    /* Pastoral callout font size matching website */
+    .sigma_cta p {
+      font-size: 14.5px !important;
+      line-height: 1.65 !important;
+    }
+    .sigma_cta span {
+      font-size: 13px !important;
+    }
+    .sigma_cta h4, .sigma_cta h4 a {
+      font-size: 19px !important;
+    }
     /* Homepage: top bar links stay in original blue/navy (no override) */
 
   
@@ -743,10 +856,10 @@
           <nav class="navbar">
             <div class="sigma_logo-wrapper">
               <a class="navbar-brand d-flex align-items-center text-decoration-none py-1" href="{{ route('home') }}">
-                <img loading="lazy" src="{{ asset('assets/img/diocese/crest_transparent.png') }}" alt="Diocese of Jalle Crest" style="height: 54px; width: auto; object-fit: contain;" class="me-2">
+                <img loading="lazy" src="{{ asset('assets/img/diocese/crest_transparent.png') }}" alt="Diocese of Jalle Crest" style="height: 52px; width: auto; object-fit: contain;" class="me-2">
                 <div class="d-flex flex-column text-start">
-                  <span class="fw-bold text-dark-navy" style="font-size: 19px; line-height: 1.1; color: #002244; letter-spacing: 0.5px; font-family: 'Poppins', sans-serif;">DIOCESE OF JALLE</span>
-                  <span class="text-uppercase text-muted" style="font-size: 11px; letter-spacing: 0.8px; color: #6c757d; font-weight: 600;">Episcopal Church of South Sudan</span>
+                  <span class="brand-title">DIOCESE OF JALLE</span>
+                  <span class="brand-subtitle">Episcopal Church of South Sudan</span>
                 </div>
               </a>
             </div>

@@ -4,11 +4,11 @@
 
 @section('content')
 <!-- Banner Start -->
-    <div class="sigma_banner banner-1 bg-cover light-overlay bg-center bg-norepeat" style="background-image: url('{{ asset('assets/img/banner/9.webp') }}')">
+    <div class="sigma_banner banner-1">
       <div class="sigma_banner-slider">
 
         <!-- Banner Item 1 -->
-        <div class="sigma_banner-slider-inner">
+        <div class="sigma_banner-slider-inner bg-cover light-overlay bg-center bg-norepeat" style="background-image: url('{{ asset('assets/img/banner/9.webp') }}')">
           <div class="sigma_banner-text">
             <div class="container position-relative">
               <div class="row align-items-center">
@@ -29,7 +29,7 @@
         </div>
 
         <!-- Banner Item 2 -->
-        <div class="sigma_banner-slider-inner">
+        <div class="sigma_banner-slider-inner bg-cover light-overlay bg-center bg-norepeat" style="background-image: url('{{ asset('assets/img/banner/1.webp') }}')">
           <div class="sigma_banner-text">
             <div class="container position-relative">
               <div class="row align-items-center">
@@ -41,6 +41,27 @@
                     <div class="section-button btn-pair mt-3">
                       <a href="{{ route('ministries') }}" class="sigma_btn-custom secondary">Our Ministries <i class="far fa-arrow-right"></i></a>
                       <a href="{{ route('about') }}" class="sigma_btn-custom light text-white">Learn More <i class="far fa-arrow-right"></i></a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Banner Item 3 -->
+        <div class="sigma_banner-slider-inner bg-cover light-overlay bg-center bg-norepeat" style="background-image: url('{{ asset('assets/img/banner/3.webp') }}')">
+          <div class="sigma_banner-text">
+            <div class="container position-relative">
+              <div class="row align-items-center">
+                <div class="col-lg-7">
+                  <div class="sigma_box primary-bg banner-cta">
+                    <p class="text-white-50 mb-2 text-uppercase fw-bold"><i class="fas fa-bible me-2"></i> Word, Liturgy & Sacraments</p>
+                    <h1 class="text-white title">ROOTED IN SCRIPTURE & ANGLICAN FAITH</h1>
+                    <p class="blockquote light light-border mb-0">Celebrating the Holy Eucharist, nurturing disciples, and planting vibrant parish churches across every boma and payam in Jonglei State.</p>
+                    <div class="section-button btn-pair mt-3">
+                      <a href="{{ route('services') }}" class="sigma_btn-custom secondary">Worship Schedule <i class="far fa-arrow-right"></i></a>
+                      <a href="{{ route('churches') }}" class="sigma_btn-custom light text-white">Our Parishes <i class="far fa-arrow-right"></i></a>
                     </div>
                   </div>
                 </div>
@@ -156,8 +177,8 @@
                       <i class="flaticon-charity"></i>
                     </div>
                     <div class="sigma_icon-block-content">
-                      <h5>Relief & Healing</h5>
-                      <p>Standing with flood-affected families and supporting community resilience.</p>
+                      <h5>Pastoral Care & Discipleship</h5>
+                      <p>Walking alongside our people in prayer, spiritual counsel, and Christian formation.</p>
                     </div>
                   </div>
                 </div>
@@ -415,7 +436,7 @@
                 <div class="sigma_volunteers-info">
                   <p class="text-white">Bishop's Commissioner</p>
                   <h5 class="text-white">
-                    <a href="{{ route('leadership') }}">Canon Michael Makuol Garang</a>
+                    <a href="{{ route('clergy.detail', 'canon-michael-makuol-garang') }}">Canon Michael Makuol Garang</a>
                   </h5>
                 </div>
               </div>
@@ -432,7 +453,7 @@
                 <div class="sigma_volunteers-info">
                   <p class="text-white">Secretary of Diocese</p>
                   <h5 class="text-white">
-                    <a href="{{ route('leadership') }}">Archdeacon Samuel Akuak</a>
+                    <a href="{{ route('clergy.detail', 'archdeacon-samuel-akuak') }}">Archdeacon Samuel Akuak</a>
                   </h5>
                 </div>
               </div>
@@ -449,7 +470,7 @@
                 <div class="sigma_volunteers-info">
                   <p class="text-white">Mothers' Union Executive</p>
                   <h5 class="text-white">
-                    <a href="{{ route('ministry.detail') }}">Diocesan MU Leaders</a>
+                    <a href="{{ route('clergy.detail', 'mothers-union-president') }}">Diocesan MU Leaders</a>
                   </h5>
                 </div>
               </div>
@@ -469,22 +490,22 @@
     <div class="section section-padding">
       <div class="container">
         <div class="section-title text-center">
-          <p class="subtitle">Partners In Mission</p>
-          <h4 class="title">Support Our Diocesan Outreach</h4>
+          <p class="subtitle">Christian Stewardship & Ministry</p>
+          <h4 class="title">Building the Kingdom of God</h4>
         </div>
         <div class="row">
           <div class="col-lg-4 col-md-6 mb-4">
             <div class="sigma_service style-2 h-100 d-flex flex-column justify-content-between">
               <div class="sigma_service-thumb" style="height: 210px; background: #eaedf0; display: flex; align-items: center; justify-content: center; overflow: hidden; border-radius: 6px;">
-                <img loading="lazy" src="{{ asset('assets/img/diocese/church-community-2.jpeg') }}" alt="Church Sanctuary Construction" class="img-full-display">
+                <img loading="lazy" src="{{ asset('assets/img/diocese/church-community-2.jpeg') }}" alt="Parish Sanctuaries" class="img-full-display">
               </div>
               <div class="sigma_service-body flex-grow-1 d-flex flex-column justify-content-between">
                 <div>
-                  <h5><a href="{{ route('donation') }}">Church Reconstruction</a></h5>
-                  <p>Supporting the construction and roofing of durable parish sanctuaries and prayer centers in Jalle Payam.</p>
+                  <h5><a href="{{ route('donation') }}">Parish Sanctuaries & Worship</a></h5>
+                  <p>Supporting the construction, roofing, and sacred furnishing of parish worship sanctuaries and chapels across the Diocese of Jalle.</p>
                 </div>
                 <div class="mt-3">
-                  <a href="{{ route('donation') }}" class="sigma_btn-custom w-100 text-center">Contribute Now</a>
+                  <a href="{{ route('donation') }}" class="sigma_btn-custom w-100 text-center">Support Church Building</a>
                 </div>
               </div>
             </div>
@@ -493,15 +514,15 @@
           <div class="col-lg-4 col-md-6 mb-4">
             <div class="sigma_service style-2 h-100 d-flex flex-column justify-content-between">
               <div class="sigma_service-thumb" style="height: 210px; background: #eaedf0; display: flex; align-items: center; justify-content: center; overflow: hidden; border-radius: 6px;">
-                <img loading="lazy" src="{{ asset('assets/img/diocese/fellowship-assembly.jpeg') }}" alt="Community Flood Relief" class="img-full-display">
+                <img loading="lazy" src="{{ asset('assets/img/diocese/fellowship-assembly.jpeg') }}" alt="Pastoral Care & Christian Compassion" class="img-full-display">
               </div>
               <div class="sigma_service-body flex-grow-1 d-flex flex-column justify-content-between">
                 <div>
-                  <h5><a href="{{ route('donation') }}">Emergency Flood Relief</a></h5>
-                  <p>Providing food staples, clean drinking water, and blankets to families displaced by heavy seasonal flooding in Jonglei.</p>
+                  <h5><a href="{{ route('donation') }}">Pastoral Care & Christian Compassion</a></h5>
+                  <p>Expressing Christ's love through compassionate parish benevolence, pastoral visitation, and walking beside suffering families in times of trial.</p>
                 </div>
                 <div class="mt-3">
-                  <a href="{{ route('donation') }}" class="sigma_btn-custom w-100 text-center">Support Relief</a>
+                  <a href="{{ route('donation') }}" class="sigma_btn-custom w-100 text-center">Support Pastoral Care</a>
                 </div>
               </div>
             </div>
@@ -510,15 +531,15 @@
           <div class="col-lg-4 col-md-6 mb-4">
             <div class="sigma_service style-2 h-100 d-flex flex-column justify-content-between">
               <div class="sigma_service-thumb" style="height: 210px; background: #eaedf0; display: flex; align-items: center; justify-content: center; overflow: hidden; border-radius: 6px;">
-                <img loading="lazy" src="{{ asset('assets/img/diocese/clergy-full-group.jpeg') }}" alt="Theological Training" class="img-full-display">
+                <img loading="lazy" src="{{ asset('assets/img/diocese/clergy-full-group.jpeg') }}" alt="Theological Education & Discipleship" class="img-full-display">
               </div>
               <div class="sigma_service-body flex-grow-1 d-flex flex-column justify-content-between">
                 <div>
-                  <h5><a href="{{ route('donation') }}">Clergy & Lay Training</a></h5>
-                  <p>Sponsoring theological education, Bible distribution, and literacy materials for pastors, catechists, and evangelists.</p>
+                  <h5><a href="{{ route('donation') }}">Theological Education & Discipleship</a></h5>
+                  <p>Nurturing ordained clergy, evangelists, Mothers' Union catechists, and youth leaders with Bibles, theological training, and Christian literature.</p>
                 </div>
                 <div class="mt-3">
-                  <a href="{{ route('donation') }}" class="sigma_btn-custom w-100 text-center">Equip Clergy</a>
+                  <a href="{{ route('donation') }}" class="sigma_btn-custom w-100 text-center">Support Discipleship</a>
                 </div>
               </div>
             </div>
@@ -578,9 +599,9 @@
             <div class="col-lg-6 mb-4 mb-lg-0">
               <div class="sigma_sermon-box p-4 rounded bg-white shadow-sm border">
                 @if($featuredSermon->image)
-                  <img src="{{ asset('storage/' . $featuredSermon->image) }}" alt="{{ $featuredSermon->title }}" class="w-100 rounded mb-3" style="max-height: 280px; object-fit: cover;">
+                  <img src="{{ Str::startsWith($featuredSermon->image, ['assets/', 'http://', 'https://']) ? asset($featuredSermon->image) : asset('storage/' . $featuredSermon->image) }}" alt="{{ $featuredSermon->title }}" class="w-100 rounded mb-3" style="max-height: 280px; object-fit: cover;">
                 @else
-                  <img src="{{ asset('assets/img/diocese/bishop-preaching.jpeg') }}" alt="{{ $featuredSermon->title }}" class="w-100 rounded mb-3" style="max-height: 280px; object-fit: cover;">
+                  <img src="{{ asset('assets/img/diocese/open-bible.webp') }}" alt="Holy Bible - Word of God" class="w-100 rounded mb-3" style="max-height: 280px; object-fit: cover;">
                 @endif
                 <span class="badge bg-primary mb-2">Featured Sermon</span>
                 <h5 class="mb-2"><a href="{{ route('sermon.show', $featuredSermon->slug) }}" class="text-dark">{{ $featuredSermon->title }}</a></h5>
@@ -590,10 +611,7 @@
                 @endif
                 <p class="text-muted fs-14 mb-3">{{ Str::limit($featuredSermon->description, 160) }}</p>
                 <div class="d-flex gap-2">
-                  <a href="{{ route('sermon.show', $featuredSermon->slug) }}" class="sigma_btn-custom btn-sm">Listen & Read <i class="far fa-arrow-right ms-1"></i></a>
-                  @if($featuredSermon->video_url)
-                    <a href="{{ $featuredSermon->video_url }}" target="_blank" class="btn btn-outline-danger btn-sm d-flex align-items-center"><i class="fas fa-video me-1"></i> Watch Video</a>
-                  @endif
+                  <a href="{{ route('sermon.show', $featuredSermon->slug) }}" class="sigma_btn-custom btn-sm">Read Sermon Message <i class="far fa-arrow-right ms-1"></i></a>
                 </div>
               </div>
             </div>
@@ -659,9 +677,12 @@
                   <img src="{{ asset('assets/img/diocese/clergy-full-group.jpeg') }}" class="card-img-top" alt="{{ $event->title }}" style="height: 200px; object-fit: cover;">
                 @endif
                 <div class="card-body p-4 d-flex flex-column">
-                  <div class="d-flex align-items-center text-muted small mb-2">
-                    <i class="far fa-calendar-alt text-primary me-2"></i>
-                    <span>{{ $event->start_date ? $event->start_date->format('M d, Y') : '' }}</span>
+                  <div class="d-flex align-items-center justify-content-between mb-2">
+                    <div class="d-flex align-items-center text-muted small">
+                      <i class="far fa-calendar-alt text-primary me-2"></i>
+                      <span>{{ $event->start_date ? $event->start_date->format('M d, Y') : '' }}</span>
+                    </div>
+                    <span class="badge {{ $event->status_badge_class }}">{{ $event->status_label }}</span>
                   </div>
                   <h5 class="card-title mb-2">
                     <a href="{{ route('event.show', $event->slug) }}" class="text-dark text-decoration-none">{{ $event->title }}</a>

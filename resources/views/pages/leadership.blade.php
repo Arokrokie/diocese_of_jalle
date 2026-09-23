@@ -59,7 +59,7 @@
               <div class="sigma_volunteers-info">
                 <p class="text-dark fw-600 mb-1">Bishop's Commissioner</p>
                 <h5>
-                  <a class="text-dark" href="{{ route('bishop') }}">Canon Michael Makuol Garang</a>
+                  <a class="text-dark" href="{{ route('clergy.detail', 'canon-michael-makuol-garang') }}">Canon Michael Makuol Garang</a>
                 </h5>
                 <p class="text-dark fs-13 mb-0">Assisting the Bishop in oversight, parish supervision, and diocesan administration.</p>
               </div>
@@ -77,7 +77,7 @@
               <div class="sigma_volunteers-info">
                 <p class="text-dark fw-600 mb-1">Secretary of Diocese</p>
                 <h5>
-                  <a class="text-dark" href="{{ route('bishop') }}">Archdeacon Samuel Akuak</a>
+                  <a class="text-dark" href="{{ route('clergy.detail', 'archdeacon-samuel-akuak') }}">Archdeacon Samuel Akuak</a>
                 </h5>
                 <p class="text-dark fs-13 mb-0">Coordinating diocesan records, communications, and synodal administration.</p>
               </div>
@@ -96,7 +96,7 @@
               <div class="sigma_volunteers-info">
                 <p class="text-dark fw-600 mb-1">Diocesan MU President</p>
                 <h5>
-                  <a class="text-dark" href="{{ route('ministry.detail') }}">Mothers' Union Leadership</a>
+                  <a class="text-dark" href="{{ route('clergy.detail', 'mothers-union-president') }}">Mothers' Union Leadership</a>
                 </h5>
                 <p class="text-dark fs-13 mb-0">Mobilizing women, family discipleship, and prayer mobilization.</p>
               </div>
@@ -114,7 +114,7 @@
               <div class="sigma_volunteers-info">
                 <p class="text-dark fw-600 mb-1">Youth &amp; Music Ministry</p>
                 <h5>
-                  <a class="text-dark" href="{{ route('ministries') }}">Diocesan Youth & Choir Leaders</a>
+                  <a class="text-dark" href="{{ route('clergy.detail', 'youth-director') }}">Diocesan Youth & Choir Leaders</a>
                 </h5>
                 <p class="text-dark fs-13 mb-0">Discipling the young, choir coordination, and liturgical servers.</p>
               </div>

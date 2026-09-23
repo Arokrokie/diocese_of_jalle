@@ -30,9 +30,9 @@
         <div class="col-lg-4 col-md-6 mb-4">
           <div class="card h-100 border rounded shadow-sm overflow-hidden d-flex flex-column">
             @if($sermon->image)
-              <img src="{{ asset('storage/' . $sermon->image) }}" alt="{{ $sermon->title }}" class="card-img-top" style="height: 220px; object-fit: cover;">
+              <img src="{{ Str::startsWith($sermon->image, ['assets/', 'http://', 'https://']) ? asset($sermon->image) : asset('storage/' . $sermon->image) }}" alt="{{ $sermon->title }}" class="card-img-top" style="height: 220px; object-fit: cover;">
             @else
-              <img src="{{ asset('assets/img/diocese/bishop-preaching.jpeg') }}" alt="{{ $sermon->title }}" class="card-img-top" style="height: 220px; object-fit: cover;">
+              <img src="{{ asset('assets/img/diocese/open-bible.webp') }}" alt="{{ $sermon->title }}" class="card-img-top" style="height: 220px; object-fit: cover;">
             @endif
             <div class="card-body p-4 d-flex flex-column flex-grow-1">
               <div class="d-flex justify-content-between align-items-center text-muted small mb-2">
@@ -48,18 +48,10 @@
               <p class="card-text text-muted small flex-grow-1">
                 {{ Str::limit($sermon->description, 130) }}
               </p>
-              <div class="d-flex justify-content-between align-items-center pt-3 border-top mt-auto">
+              <div class="pt-3 border-top mt-auto">
                 <a href="{{ route('sermon.show', $sermon->slug) }}" class="fw-bold custom-primary fs-14">
-                  Listen & Study <i class="far fa-arrow-right ms-1"></i>
+                  Read Sermon Message <i class="far fa-arrow-right ms-1"></i>
                 </a>
-                <div class="d-flex gap-2">
-                  @if($sermon->audio_url)
-                    <span class="text-primary" title="Audio Available"><i class="fas fa-headphones"></i></span>
-                  @endif
-                  @if($sermon->video_url)
-                    <span class="text-danger" title="Video Available"><i class="fas fa-video"></i></span>
-                  @endif
-                </div>
               </div>
             </div>
           </div>
