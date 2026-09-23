@@ -46,6 +46,12 @@ jobs:
           git fetch --all
           git reset --hard origin/main
 
+          # Verify or generate APP_KEY if empty
+          if ! grep -q '^APP_KEY=base64:' .env 2>/dev/null; then
+            echo 'Warning: APP_KEY is missing or empty in .env. Generating application encryption key...'
+            php artisan key:generate --force || true
+          fi
+
           echo '=== [2/6] Installing Composer Dependencies ==='
           if [ -f composer.phar ]; then
             php composer.phar install --no-interaction --prefer-dist --optimize-autoloader --no-dev
@@ -55,8 +61,9 @@ jobs:
             echo 'Warning: Composer not found in PATH or root. Skipping.'
           fi
 
-          echo '=== [3/6] Running Database Migrations ==='
+          echo '=== [3/6] Running Database Migrations & Seeds ==='
           php artisan migrate --force || true
+          php artisan db:seed --force || true
 
           echo '=== [4/6] Linking Storage Directory ==='
           php artisan storage:link || true
@@ -70,6 +77,12 @@ jobs:
 
           echo '=== [6/6] Enforcing Production File Permissions ==='
           chmod -R 775 storage bootstrap/cache public || true
+
+          # If any recent error log exists, output the last 15 lines for diagnostics
+          if [ -f storage/logs/laravel.log ]; then
+            echo '=== Recent Laravel Log Snippet (if any) ==='
+            tail -n 15 storage/logs/laravel.log || true
+          fi
 
           echo '=== Deployment Completed Successfully! ==='
         "
