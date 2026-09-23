@@ -35,7 +35,7 @@
         <div class="col-lg-4 col-md-6 mb-4">
           <div class="sigma_volunteers rounded overflow-hidden shadow-sm h-100 d-flex flex-column" style="background:#fff; border-bottom: 3px solid #022147;">
             <div class="sigma_volunteers-thumb" style="height: 260px; background: #eaedf0; display: flex; align-items: center; justify-content: center; overflow: hidden;">
-              <img loading="lazy" src="{{ asset('assets/img/diocese/bishop-abraham-matiop.jpeg') }}" alt="Rt. Rev. Abraham Matiop Deng Kechdit" class="img-full-display">
+              <img loading="lazy" src="{{ asset('assets/img/diocese/abraham.jpeg') }}" alt="Rt. Rev. Abraham Matiop Deng Kechdit" class="img-full-display">
             </div>
             <div class="sigma_volunteers-body">
               <div class="sigma_volunteers-info">
@@ -53,7 +53,7 @@
         <div class="col-lg-4 col-md-6 mb-4">
           <div class="sigma_volunteers rounded overflow-hidden shadow-sm h-100 d-flex flex-column" style="background:#fff; border-bottom: 3px solid #022147;">
             <div class="sigma_volunteers-thumb" style="height: 260px; background: #eaedf0; display: flex; align-items: center; justify-content: center; overflow: hidden;">
-              <img loading="lazy" src="{{ asset('assets/img/diocese/bishop-and-clergy.jpeg') }}" alt="Canon Michael Makuol Garang" class="img-full-display">
+              <img loading="lazy" src="{{ asset('assets/img/diocese/micheal.jpeg') }}" alt="Canon Michael Makuol Garang" class="img-full-display">
             </div>
             <div class="sigma_volunteers-body">
               <div class="sigma_volunteers-info">
@@ -71,7 +71,7 @@
         <div class="col-lg-4 col-md-6 mb-4">
           <div class="sigma_volunteers rounded overflow-hidden shadow-sm h-100 d-flex flex-column" style="background:#fff; border-bottom: 3px solid #022147;">
             <div class="sigma_volunteers-thumb" style="height: 260px; background: #eaedf0; display: flex; align-items: center; justify-content: center; overflow: hidden;">
-              <img loading="lazy" src="{{ asset('assets/img/diocese/clergy-full-group.jpeg') }}" alt="Archdeacon Samuel Akuak" class="img-full-display">
+              <img loading="lazy" src="{{ asset('assets/img/diocese/samuel.jpeg') }}" alt="Archdeacon Samuel Akuak" class="img-full-display">
             </div>
             <div class="sigma_volunteers-body">
               <div class="sigma_volunteers-info">

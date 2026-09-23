@@ -27,7 +27,7 @@
       <div class="row align-items-center">
         <div class="col-lg-5 mb-4 mb-lg-0">
           <div class="sigma_volunteers-details-thumb">
-            <img loading="lazy" src="{{ asset('assets/img/diocese/bishop-abraham-matiop.jpeg') }}" alt="Rt. Rev. Abraham Matiop Deng Kechdit" class="w-100 rounded shadow">
+            <img loading="lazy" src="{{ asset('assets/img/diocese/abraham.jpeg') }}" alt="Rt. Rev. Abraham Matiop Deng Kechdit" class="w-100 rounded shadow">
           </div>
         </div>
         <div class="col-lg-7">

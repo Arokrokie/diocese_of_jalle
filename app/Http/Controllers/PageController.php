@@ -33,7 +33,7 @@ class PageController extends Controller
                 'name' => 'Venerable Canon Michael Makuol Garang',
                 'title' => "Bishop's Commissioner",
                 'ecss_title' => 'Dean & Senior Episcopal Commissioner',
-                'image' => 'assets/img/diocese/clergyman-portrait.jpeg',
+                'image' => 'assets/img/diocese/micheal.jpeg',
                 'bio' => 'Canon Michael Makuol Garang serves as the primary administrative and episcopal commissioner for the Diocese of Jalle, assisting the Diocesan Bishop in diocesan governance, parish pastoral oversight, synod planning, and diocesan representation across the Jonglei Internal Province.',
                 'scripture' => '1 Corinthians 4:2 — "Now it is required that those who have been given a trust must prove faithful."',
                 'responsibilities' => [
@@ -47,7 +47,7 @@ class PageController extends Controller
                 'name' => 'Venerable Canon Michael Makuol Garang',
                 'title' => "Bishop's Commissioner",
                 'ecss_title' => 'Dean & Senior Episcopal Commissioner',
-                'image' => 'assets/img/diocese/clergyman-portrait.jpeg',
+                'image' => 'assets/img/diocese/micheal.jpeg',
                 'bio' => 'Canon Michael Makuol Garang serves as the primary administrative and episcopal commissioner for the Diocese of Jalle, assisting the Diocesan Bishop in diocesan governance, parish pastoral oversight, synod planning, and diocesan representation across the Jonglei Internal Province.',
                 'scripture' => '1 Corinthians 4:2 — "Now it is required that those who have been given a trust must prove faithful."',
                 'responsibilities' => [
@@ -61,7 +61,7 @@ class PageController extends Controller
                 'name' => 'Venerable Archdeacon Samuel Akuak',
                 'title' => 'Secretary of Diocese',
                 'ecss_title' => 'Diocesan Secretary & Archdeacon of Jalle',
-                'image' => 'assets/img/diocese/bishop-preaching.jpeg',
+                'image' => 'assets/img/diocese/samuel.jpeg',
                 'bio' => 'Archdeacon Samuel Akuak coordinates the central secretariat of the Diocese of Jalle, managing communications, registry of baptisms, confirmations, and ordinations, as well as pastoral correspondence across all archdeaconries and parishes.',
                 'scripture' => 'Colossians 3:23 — "Whatever you do, work at it with all your heart, as working for the Lord, not for human masters."',
                 'responsibilities' => [

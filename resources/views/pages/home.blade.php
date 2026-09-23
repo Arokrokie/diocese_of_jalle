@@ -413,7 +413,7 @@
           <div class="col-lg-3 col-md-6 mb-4">
             <div class="sigma_volunteers volunteers-4">
               <div class="sigma_volunteers-thumb">
-                <img loading="lazy" src="{{ asset('assets/img/diocese/bishop-abraham-matiop.jpeg') }}" alt="Rt. Rev. Abraham Matiop Deng Kechdit" style="height: 200px; width: 200px; object-fit: cover; object-position: top; border-radius: 50%;">
+                <img loading="lazy" src="{{ asset('assets/img/diocese/abraham.jpeg') }}" alt="Rt. Rev. Abraham Matiop Deng Kechdit" style="height: 200px; width: 200px; object-fit: cover; object-position: top; border-radius: 50%;">
               </div>
               <div class="sigma_volunteers-body">
                 <div class="sigma_volunteers-info">
@@ -430,7 +430,7 @@
           <div class="col-lg-3 col-md-6 mb-4">
             <div class="sigma_volunteers volunteers-4">
               <div class="sigma_volunteers-thumb">
-                <img loading="lazy" src="{{ asset('assets/img/diocese/bishop-and-clergy.jpeg') }}" alt="Canon Michael Makuol Garang" style="height: 200px; width: 200px; object-fit: cover; object-position: top; border-radius: 50%;">
+                <img loading="lazy" src="{{ asset('assets/img/diocese/micheal.jpeg') }}" alt="Canon Michael Makuol Garang" style="height: 200px; width: 200px; object-fit: cover; object-position: top; border-radius: 50%;">
               </div>
               <div class="sigma_volunteers-body">
                 <div class="sigma_volunteers-info">
@@ -447,7 +447,7 @@
           <div class="col-lg-3 col-md-6 mb-4">
             <div class="sigma_volunteers volunteers-4">
               <div class="sigma_volunteers-thumb">
-                <img loading="lazy" src="{{ asset('assets/img/diocese/clergy-full-group.jpeg') }}" alt="Archdeacon Samuel Akuak" style="height: 200px; width: 200px; object-fit: cover; object-position: top; border-radius: 50%;">
+                <img loading="lazy" src="{{ asset('assets/img/diocese/samuel.jpeg') }}" alt="Archdeacon Samuel Akuak" style="height: 200px; width: 200px; object-fit: cover; object-position: top; border-radius: 50%;">
               </div>
               <div class="sigma_volunteers-body">
                 <div class="sigma_volunteers-info">
