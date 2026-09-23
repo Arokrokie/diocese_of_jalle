@@ -56,11 +56,12 @@
       @forelse($events as $event)
         <div class="col-lg-4 col-md-6 mb-4">
           <div class="card h-100 border rounded shadow-sm overflow-hidden d-flex flex-column">
-            @if($event->image)
-              <img src="{{ asset('storage/' . $event->image) }}" alt="{{ $event->title }}" class="card-img-top" style="height: 220px; object-fit: cover;">
-            @else
-              <img src="{{ asset('assets/img/diocese/clergy-full-group.jpeg') }}" alt="{{ $event->title }}" class="card-img-top" style="height: 220px; object-fit: cover;">
-            @endif
+            @php
+              $eventImg = $event->image
+                ? (Str::startsWith($event->image, ['assets/', 'http://', 'https://']) ? asset($event->image) : asset('storage/' . $event->image))
+                : asset('assets/img/diocese/diocese-event-1.jpeg');
+            @endphp
+            <img src="{{ $eventImg }}" alt="{{ $event->title }}" class="card-img-top" style="height: 220px; object-fit: cover;">
             <div class="card-body p-4 d-flex flex-column flex-grow-1">
               <div class="d-flex align-items-center justify-content-between mb-2">
                 <div class="d-flex align-items-center text-muted small">

@@ -58,11 +58,8 @@
                  style="object-fit: cover; object-position: center; transition: transform 0.4s ease;">
           </div>
           <div class="position-absolute bottom-0 start-0 end-0 p-3"
-               style="background: linear-gradient(transparent, rgba(0,0,0,0.65));">
+               style="background: linear-gradient(transparent, rgba(0,0,0,0.7));">
             <p class="text-white mb-0 fw-semibold small">{{ $photo->title }}</p>
-            @if($photo->category)
-              <span class="badge bg-primary" style="font-size: 10px;">{{ $photo->category }}</span>
-            @endif
           </div>
           <div class="position-absolute top-50 start-50 translate-middle text-white opacity-0 gallery-zoom-icon"
                style="transition: opacity 0.3s ease; font-size: 22px; pointer-events: none;">

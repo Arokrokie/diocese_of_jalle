@@ -24,33 +24,25 @@ class SermonController extends Controller
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'title' => 'required|string|max:255',
-            'preacher' => 'required|string|max:255',
-            'scripture' => 'nullable|string|max:255',
+            'title'       => 'required|string|max:255',
+            'preacher'    => 'required|string|max:255',
+            'scripture'   => 'nullable|string|max:255',
             'sermon_date' => 'required|date',
             'description' => 'nullable|string',
-            'notes' => 'nullable|string',
-            'audio_url' => 'nullable|url|max:255',
-            'video_url' => 'nullable|url|max:255',
-            'image_file' => 'nullable|image|mimes:jpeg,png,jpg,webp|max:5120',
+            'notes'       => 'nullable|string',
         ]);
 
-        $imagePath = null;
-        if ($request->hasFile('image_file')) {
-            $imagePath = $request->file('image_file')->store('sermons', 'public');
-        }
-
         Sermon::create([
-            'title' => $validated['title'],
-            'slug' => Str::slug($validated['title']) . '-' . Str::random(5),
-            'preacher' => $validated['preacher'],
-            'scripture' => $validated['scripture'],
+            'title'       => $validated['title'],
+            'slug'        => Str::slug($validated['title']) . '-' . Str::random(5),
+            'preacher'    => $validated['preacher'],
+            'scripture'   => $validated['scripture'] ?? null,
             'sermon_date' => $validated['sermon_date'],
-            'description' => $validated['description'],
-            'notes' => $validated['notes'],
-            'audio_url' => $validated['audio_url'],
-            'video_url' => $validated['video_url'],
-            'image' => $imagePath,
+            'description' => $validated['description'] ?? null,
+            'notes'       => $validated['notes'] ?? null,
+            'audio_url'   => null,
+            'video_url'   => null,
+            'image'       => null,
         ]);
 
         return redirect()->route('admin.sermons.index')->with('success', 'Sermon created successfully.');
@@ -64,33 +56,21 @@ class SermonController extends Controller
     public function update(Request $request, Sermon $sermon)
     {
         $validated = $request->validate([
-            'title' => 'required|string|max:255',
-            'preacher' => 'required|string|max:255',
-            'scripture' => 'nullable|string|max:255',
+            'title'       => 'required|string|max:255',
+            'preacher'    => 'required|string|max:255',
+            'scripture'   => 'nullable|string|max:255',
             'sermon_date' => 'required|date',
             'description' => 'nullable|string',
-            'notes' => 'nullable|string',
-            'audio_url' => 'nullable|url|max:255',
-            'video_url' => 'nullable|url|max:255',
-            'image_file' => 'nullable|image|mimes:jpeg,png,jpg,webp|max:5120',
+            'notes'       => 'nullable|string',
         ]);
 
-        if ($request->hasFile('image_file')) {
-            if ($sermon->image && Storage::disk('public')->exists($sermon->image)) {
-                Storage::disk('public')->delete($sermon->image);
-            }
-            $sermon->image = $request->file('image_file')->store('sermons', 'public');
-        }
-
         $sermon->update([
-            'title' => $validated['title'],
-            'preacher' => $validated['preacher'],
-            'scripture' => $validated['scripture'],
+            'title'       => $validated['title'],
+            'preacher'    => $validated['preacher'],
+            'scripture'   => $validated['scripture'] ?? null,
             'sermon_date' => $validated['sermon_date'],
-            'description' => $validated['description'],
-            'notes' => $validated['notes'],
-            'audio_url' => $validated['audio_url'],
-            'video_url' => $validated['video_url'],
+            'description' => $validated['description'] ?? null,
+            'notes'       => $validated['notes'] ?? null,
         ]);
 
         return redirect()->route('admin.sermons.index')->with('success', 'Sermon updated successfully.');

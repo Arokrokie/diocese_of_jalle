@@ -69,7 +69,7 @@
                   </div>
                   <div class="sigma_icon-block-content">
                     <h5>Biblical Faith</h5>
-                    <p>Committed to Orthodox Anglican theology and Scripture.</p>
+                    <p>Rooted in historic Anglican theology, Holy Scripture, and the Book of Common Prayer.</p>
                   </div>
                 </div>
               </div>

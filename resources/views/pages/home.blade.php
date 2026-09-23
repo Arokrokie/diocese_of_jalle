@@ -8,7 +8,7 @@
       <div class="sigma_banner-slider">
 
         <!-- Banner Item 1 -->
-        <div class="sigma_banner-slider-inner bg-cover light-overlay bg-center bg-norepeat" style="background-image: url('{{ asset('assets/img/banner/9.webp') }}')">
+        <div class="sigma_banner-slider-inner bg-cover bg-center bg-norepeat" style="background-image: url('{{ asset('assets/img/diocese/bishop-preaching.jpeg') }}')">
           <div class="sigma_banner-text">
             <div class="container position-relative">
               <div class="row align-items-center">
@@ -29,7 +29,7 @@
         </div>
 
         <!-- Banner Item 2 -->
-        <div class="sigma_banner-slider-inner bg-cover light-overlay bg-center bg-norepeat" style="background-image: url('{{ asset('assets/img/banner/1.webp') }}')">
+        <div class="sigma_banner-slider-inner bg-cover bg-center bg-norepeat" style="background-image: url('{{ asset('assets/img/diocese/bishop-and-clergy.jpeg') }}')">
           <div class="sigma_banner-text">
             <div class="container position-relative">
               <div class="row align-items-center">
@@ -50,7 +50,7 @@
         </div>
 
         <!-- Banner Item 3 -->
-        <div class="sigma_banner-slider-inner bg-cover light-overlay bg-center bg-norepeat" style="background-image: url('{{ asset('assets/img/banner/3.webp') }}')">
+        <div class="sigma_banner-slider-inner bg-cover bg-center bg-norepeat" style="background-image: url('{{ asset('assets/img/diocese/choir-and-procession.jpeg') }}')">
           <div class="sigma_banner-text">
             <div class="container position-relative">
               <div class="row align-items-center">
@@ -671,11 +671,12 @@
           @forelse($events as $event)
             <div class="col-lg-4 col-md-6 mb-4">
               <div class="card h-100 border shadow-sm rounded overflow-hidden">
-                @if($event->image)
-                  <img src="{{ asset('storage/' . $event->image) }}" class="card-img-top" alt="{{ $event->title }}" style="height: 200px; object-fit: cover;">
-                @else
-                  <img src="{{ asset('assets/img/diocese/clergy-full-group.jpeg') }}" class="card-img-top" alt="{{ $event->title }}" style="height: 200px; object-fit: cover;">
-                @endif
+                @php
+                  $eventImg = $event->image
+                    ? (Str::startsWith($event->image, ['assets/', 'http://', 'https://']) ? asset($event->image) : asset('storage/' . $event->image))
+                    : asset('assets/img/diocese/diocese-event-1.jpeg');
+                @endphp
+                <img src="{{ $eventImg }}" class="card-img-top" alt="{{ $event->title }}" style="height: 200px; object-fit: cover;">
                 <div class="card-body p-4 d-flex flex-column">
                   <div class="d-flex align-items-center justify-content-between mb-2">
                     <div class="d-flex align-items-center text-muted small">
@@ -727,11 +728,12 @@
               <article class="sigma_post bg-white rounded overflow-hidden shadow-sm h-100 d-flex flex-column">
                 <div class="sigma_post-thumb">
                   <a href="{{ route('news.show', $post->slug) }}">
-                    @if($post->image)
-                      <img loading="lazy" src="{{ asset('storage/' . $post->image) }}" alt="{{ $post->title }}" style="height: 220px; width: 100%; object-fit: cover;">
-                    @else
-                      <img loading="lazy" src="{{ asset('assets/img/diocese/bishop-and-clergy.jpeg') }}" alt="{{ $post->title }}" style="height: 220px; width: 100%; object-fit: cover;">
-                    @endif
+                    @php
+                      $postImg = $post->image
+                        ? (Str::startsWith($post->image, ['assets/', 'http://', 'https://']) ? asset($post->image) : asset('storage/' . $post->image))
+                        : asset('assets/img/diocese/bishop-and-clergy.jpeg');
+                    @endphp
+                    <img loading="lazy" src="{{ $postImg }}" alt="{{ $post->title }}" style="height: 220px; width: 100%; object-fit: cover;">
                   </a>
                 </div>
                 <div class="sigma_post-body p-4 d-flex flex-column flex-grow-1">

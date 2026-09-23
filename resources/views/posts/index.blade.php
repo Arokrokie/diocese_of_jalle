@@ -33,11 +33,12 @@
               <article class="sigma_post bg-white rounded overflow-hidden shadow-sm h-100 d-flex flex-column border">
                 <div class="sigma_post-thumb">
                   <a href="{{ route('news.show', $post->slug) }}">
-                    @if($post->image)
-                      <img loading="lazy" src="{{ asset('storage/' . $post->image) }}" alt="{{ $post->title }}" style="height: 220px; width: 100%; object-fit: cover;">
-                    @else
-                      <img loading="lazy" src="{{ asset('assets/img/diocese/bishop-and-clergy.jpeg') }}" alt="{{ $post->title }}" style="height: 220px; width: 100%; object-fit: cover;">
-                    @endif
+                    @php
+                      $postImg = $post->image
+                        ? (Str::startsWith($post->image, ['assets/', 'http://', 'https://']) ? asset($post->image) : asset('storage/' . $post->image))
+                        : asset('assets/img/diocese/bishop-and-clergy.jpeg');
+                    @endphp
+                    <img loading="lazy" src="{{ $postImg }}" alt="{{ $post->title }}" style="height: 220px; width: 100%; object-fit: cover;">
                   </a>
                 </div>
                 <div class="sigma_post-body p-4 d-flex flex-column flex-grow-1">

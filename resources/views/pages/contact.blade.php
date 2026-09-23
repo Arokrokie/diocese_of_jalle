@@ -86,6 +86,14 @@
           <h4>Send Us a Message or Prayer Request</h4>
           <p class="text-muted mb-4">Whether you are seeking pastoral counseling, wishing to partner with our ministries, or sharing a prayer need, we are here for you.</p>
 
+          @if(session('success'))
+            <div class="alert alert-success alert-dismissible fade show p-3 mb-4 shadow-sm" role="alert">
+              <h6 class="alert-heading mb-1"><i class="fas fa-check-circle me-1"></i> Message Sent in Faith!</h6>
+              <p class="mb-0 small">{{ session('success') }}</p>
+              <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+          @endif
+
           <form action="{{ route('contact.store') }}" method="POST">
             @csrf
             <div class="row">

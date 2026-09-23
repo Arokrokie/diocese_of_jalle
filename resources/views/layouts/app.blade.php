@@ -73,6 +73,7 @@
       flex-shrink: 0 !important;
       display: flex !important;
       align-items: center !important;
+      margin-right: 35px !important;
     }
     .navbar-brand {
       display: flex !important;
@@ -95,11 +96,45 @@
       text-transform: uppercase !important;
       color: #6c757d !important;
     }
-    .page-inner .sigma_header.header-4:not(.sticky) .brand-title {
-      color: #ffffff !important;
+
+    /* Darken Preloader */
+    .sigma_preloader {
+      background-color: #0b1a2c !important;
     }
-    .page-inner .sigma_header.header-4:not(.sticky) .brand-subtitle {
-      color: rgba(255, 255, 255, 0.85) !important;
+
+    /* Hero Banner Zoom Transition (Ken Burns Effect) */
+    .sigma_banner .sigma_banner-slider-inner {
+      position: relative;
+      overflow: hidden;
+      background-size: cover;
+      background-position: center;
+      min-height: 600px;
+    }
+    .sigma_banner .sigma_banner-slider-inner::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: inherit;
+      background-size: cover;
+      background-position: center;
+      transform: scale(1);
+      transition: transform 6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      z-index: 0;
+    }
+    .sigma_banner .slick-active .sigma_banner-slider-inner::before,
+    .sigma_banner .sigma_banner-slider-inner.slick-active::before {
+      transform: scale(1.12);
+    }
+    .sigma_banner .sigma_banner-slider-inner::after {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: linear-gradient(to right, rgba(0, 20, 45, 0.85) 0%, rgba(0, 20, 45, 0.60) 55%, rgba(0, 20, 45, 0.35) 100%);
+      z-index: 1;
+    }
+    .sigma_banner .sigma_banner-slider-inner .sigma_banner-text {
+      position: relative;
+      z-index: 2;
     }
 
     @media (min-width: 992px) and (max-width: 1399px) {

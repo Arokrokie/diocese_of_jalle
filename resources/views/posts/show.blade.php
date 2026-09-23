@@ -29,11 +29,14 @@
     <div class="row">
       <div class="col-lg-8">
         <article class="post-details">
-          @if($post->image)
-            <div class="post-thumbnail mb-4">
-              <img src="{{ asset('storage/' . $post->image) }}" alt="{{ $post->title }}" class="w-100 rounded shadow-sm">
-            </div>
-          @endif
+          <div class="post-thumbnail mb-4">
+            @php
+              $postImg = $post->image
+                ? (Str::startsWith($post->image, ['assets/', 'http://', 'https://']) ? asset($post->image) : asset('storage/' . $post->image))
+                : asset('assets/img/diocese/bishop-and-clergy.jpeg');
+            @endphp
+            <img src="{{ $postImg }}" alt="{{ $post->title }}" class="w-100 rounded shadow-sm" style="max-height: 440px; object-fit: cover;">
+          </div>
 
           <div class="post-meta mb-3 pb-3 border-bottom d-flex align-items-center gap-3 text-muted small">
             <span><i class="far fa-calendar-alt text-primary me-1"></i> {{ $post->created_at->format('F d, Y') }}</span>
@@ -48,7 +51,7 @@
           @endif
 
           <div class="post-content mb-5" style="line-height: 1.85; font-size: 16px;">
-            {!! nl2br(e($post->content)) !!}
+            {!! Str::contains($post->content, ['<p>', '<br', '<div>']) ? $post->content : nl2br(e($post->content)) !!}
           </div>
 
           <div class="post-footer pt-3 border-top d-flex justify-content-between align-items-center">

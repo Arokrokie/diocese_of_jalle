@@ -29,11 +29,14 @@
     <div class="row">
       <div class="col-lg-8">
         <div class="event-details">
-          @if($event->image)
-            <div class="event-thumbnail mb-4">
-              <img src="{{ asset('storage/' . $event->image) }}" alt="{{ $event->title }}" class="w-100 rounded shadow-sm">
-            </div>
-          @endif
+          <div class="event-thumbnail mb-4">
+            @php
+              $eventImg = $event->image
+                ? (Str::startsWith($event->image, ['assets/', 'http://', 'https://']) ? asset($event->image) : asset('storage/' . $event->image))
+                : asset('assets/img/diocese/diocese-event-1.jpeg');
+            @endphp
+            <img src="{{ $eventImg }}" alt="{{ $event->title }}" class="w-100 rounded shadow-sm" style="max-height: 440px; object-fit: cover;">
+          </div>
 
           <div class="p-4 bg-light rounded border mb-4">
             <div class="row g-3">

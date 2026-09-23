@@ -35,12 +35,6 @@
           <input type="date" name="sermon_date" class="form-control" value="{{ old('sermon_date', date('Y-m-d')) }}" required>
         </div>
 
-        <div class="col-md-12">
-          <label class="form-label fw-semibold">Thumbnail / Cover Image</label>
-          <input type="file" name="image_file" class="form-control" accept="image/*">
-          <small class="text-muted">Accepted formats: JPEG, PNG, WebP (Max 5MB). Leave blank to use the default bible image.</small>
-        </div>
-
         <div class="col-12">
           <label class="form-label fw-semibold">Sermon Description</label>
           <textarea name="description" class="form-control" rows="3" placeholder="Brief summary of the theme and key message...">{{ old('description') }}</textarea>
