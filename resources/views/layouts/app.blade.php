@@ -964,11 +964,11 @@
   <!-- Schema.org JSON-LD Structured Data for Church & Knowledge Graph -->
   <script type="application/ld+json">
   {
-    "@context": "https://schema.org",
-    "@graph": [
+    "@@context": "https://schema.org",
+    "@@graph": [
       {
-        "@type": ["Church", "ReligiousOrganization"],
-        "@id": "{{ url('/') }}#church",
+        "@@type": ["Church", "ReligiousOrganization"],
+        "@@id": "{{ url('/') }}#church",
         "name": "Diocese of Jalle",
         "alternateName": [
           "Diocese of Jalle - ECSS",
@@ -976,8 +976,8 @@
         ],
         "url": "{{ url('/') }}",
         "logo": {
-          "@type": "ImageObject",
-          "@id": "{{ url('/') }}#logo",
+          "@@type": "ImageObject",
+          "@@id": "{{ url('/') }}#logo",
           "url": "{{ asset('assets/img/diocese/crest.png') }}",
           "caption": "Diocese of Jalle Crest"
         },
@@ -985,32 +985,32 @@
         "description": "The Diocese of Jalle is an active Anglican diocese within the Jonglei Internal Province of the Episcopal Church of South Sudan (ECSS), ministering under the leadership of Rt. Rev. Abraham Matiop Deng Kechdit.",
         "email": "info@dioceseofjalle.org",
         "address": {
-          "@type": "PostalAddress",
+          "@@type": "PostalAddress",
           "streetAddress": "Diocesan Secretariat, Jalle Payam",
           "addressLocality": "Bor County",
           "addressRegion": "Jonglei State",
           "addressCountry": "SS"
         },
         "leader": {
-          "@type": "Person",
+          "@@type": "Person",
           "name": "Rt. Rev. Abraham Matiop Deng Kechdit",
           "jobTitle": "Diocesan Bishop",
           "image": "{{ asset('assets/img/diocese/abraham.jpeg') }}"
         },
         "parentOrganization": {
-          "@type": "ReligiousOrganization",
+          "@@type": "ReligiousOrganization",
           "name": "Episcopal Church of South Sudan",
           "alternateName": "ECSS"
         }
       },
       {
-        "@type": "WebSite",
-        "@id": "{{ url('/') }}#website",
+        "@@type": "WebSite",
+        "@@id": "{{ url('/') }}#website",
         "url": "{{ url('/') }}",
         "name": "Diocese of Jalle",
         "description": "Official Web Portal of the Diocese of Jalle, Episcopal Church of South Sudan (ECSS)",
         "publisher": {
-          "@id": "{{ url('/') }}#church"
+          "@@id": "{{ url('/') }}#church"
         },
         "inLanguage": "en"
       }

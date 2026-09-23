@@ -91,12 +91,12 @@
 @push('schema')
 <script type="application/ld+json">
 {
-  "@context": "https://schema.org",
-  "@type": "Person",
+  "@@context": "https://schema.org",
+  "@@type": "Person",
   "name": "Rt. Rev. Abraham Matiop Deng Kechdit",
   "jobTitle": "Diocesan Bishop",
   "worksFor": {
-    "@type": "ReligiousOrganization",
+    "@@type": "ReligiousOrganization",
     "name": "Diocese of Jalle - Episcopal Church of South Sudan",
     "url": "{{ url('/') }}"
   },

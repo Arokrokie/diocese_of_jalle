@@ -110,29 +110,29 @@
 @push('schema')
 <script type="application/ld+json">
 {
-  "@context": "https://schema.org",
-  "@type": "NewsArticle",
+  "@@context": "https://schema.org",
+  "@@type": "NewsArticle",
   "headline": {{ json_encode($post->title) }},
   "description": {{ json_encode($postDesc) }},
   "image": [{{ json_encode($postImgUrl) }}],
   "datePublished": "{{ $post->created_at->toIso8601String() }}",
   "dateModified": "{{ ($post->updated_at ?: $post->created_at)->toIso8601String() }}",
   "author": {
-    "@type": "Organization",
+    "@@type": "Organization",
     "name": "Diocese of Jalle",
     "url": "{{ url('/') }}"
   },
   "publisher": {
-    "@type": "ReligiousOrganization",
+    "@@type": "ReligiousOrganization",
     "name": "Diocese of Jalle - Episcopal Church of South Sudan",
     "logo": {
-      "@type": "ImageObject",
+      "@@type": "ImageObject",
       "url": "{{ asset('assets/img/diocese/crest.png') }}"
     }
   },
   "mainEntityOfPage": {
-    "@type": "WebPage",
-    "@id": "{{ route('news.show', $post->slug) }}"
+    "@@type": "WebPage",
+    "@@id": "{{ route('news.show', $post->slug) }}"
   }
 }
 </script>

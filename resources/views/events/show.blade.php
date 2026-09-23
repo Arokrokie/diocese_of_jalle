@@ -115,8 +115,8 @@
 @push('schema')
 <script type="application/ld+json">
 {
-  "@context": "https://schema.org",
-  "@type": "Event",
+  "@@context": "https://schema.org",
+  "@@type": "Event",
   "name": {{ json_encode($event->title) }},
   "description": {{ json_encode($eventDesc) }},
   "startDate": "{{ $event->start_date ? $event->start_date->toIso8601String() : '' }}",
@@ -124,10 +124,10 @@
   "eventStatus": "https://schema.org/EventScheduled",
   "eventAttendanceMode": "https://schema.org/OfflineEventAttendanceMode",
   "location": {
-    "@type": "Place",
+    "@@type": "Place",
     "name": {{ json_encode($event->location ?: 'Diocese of Jalle') }},
     "address": {
-      "@type": "PostalAddress",
+      "@@type": "PostalAddress",
       "addressLocality": "Jalle Payam, Bor County",
       "addressRegion": "Jonglei State",
       "addressCountry": "SS"
@@ -135,7 +135,7 @@
   },
   "image": [{{ json_encode($eventImgUrl) }}],
   "organizer": {
-    "@type": "ReligiousOrganization",
+    "@@type": "ReligiousOrganization",
     "name": "Diocese of Jalle - Episcopal Church of South Sudan",
     "url": "{{ url('/') }}"
   }

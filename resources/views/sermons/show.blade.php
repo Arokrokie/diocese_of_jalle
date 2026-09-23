@@ -126,21 +126,21 @@
 @push('schema')
 <script type="application/ld+json">
 {
-  "@context": "https://schema.org",
-  "@type": "CreativeWork",
+  "@@context": "https://schema.org",
+  "@@type": "CreativeWork",
   "name": {{ json_encode($sermon->title) }},
   "description": {{ json_encode($sermonDesc) }},
   "author": {
-    "@type": "Person",
+    "@@type": "Person",
     "name": {{ json_encode($sermon->preacher) }}
   },
   "datePublished": "{{ $sermon->sermon_date ? $sermon->sermon_date->toIso8601String() : ($sermon->created_at ? $sermon->created_at->toIso8601String() : '') }}",
   "publisher": {
-    "@type": "ReligiousOrganization",
+    "@@type": "ReligiousOrganization",
     "name": "Diocese of Jalle - Episcopal Church of South Sudan",
     "url": "{{ url('/') }}",
     "logo": {
-      "@type": "ImageObject",
+      "@@type": "ImageObject",
       "url": "{{ asset('assets/img/diocese/crest.png') }}"
     }
   },
