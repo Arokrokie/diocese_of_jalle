@@ -132,7 +132,9 @@
     fade: true,
     cssEase: 'ease-in-out',
     infinite: true,
-    pauseOnHover: true,
+    pauseOnHover: false,
+    pauseOnFocus: false,
+    pauseOnDotsHover: false,
     prevArrow: '<div class="slick-prev slick-arrow"><i class="far fa-chevron-left"></i></div>',
     nextArrow: '<div class="slick-next slick-arrow"><i class="far fa-chevron-right"></i></div>',
     responsive: [{ breakpoint: 991, settings: { arrows: false, dots: true } }]

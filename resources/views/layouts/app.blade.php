@@ -56,13 +56,28 @@
       text-transform: none;
     }
   
-    /* Inner pages: top bar links white (header sits on dark subheader) */
-    .page-inner .sigma_header.header-4 .sigma_header-top a,
-    .page-inner .sigma_header.header-4 .sigma_header-top i,
-    .page-inner .sigma_header.header-4 .sigma_sm li a {
-      color: #ffffff !important;
+    /* Top bar (all pages): white text and icons with text-shadow and subtle backdrop */
+    .sigma_header.header-4 .sigma_header-top {
+      background: rgba(0, 20, 45, 0.45) !important;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.15) !important;
     }
-    .page-inner .sigma_header.header-4 .desktop-toggler span {
+    .sigma_header.header-4 .sigma_header-top,
+    .sigma_header.header-4 .sigma_header-top a,
+    .sigma_header.header-4 .sigma_header-top i,
+    .sigma_header.header-4 .sigma_header-top-links li,
+    .sigma_header.header-4 .sigma_header-top-links li a,
+    .sigma_header.header-4 .sigma_header-top-links li i,
+    .sigma_header.header-4 .sigma_header-top .navbar-nav .menu-item a,
+    .sigma_header.header-4 .sigma_sm li a,
+    .sigma_header.header-4 .sigma_sm li a i {
+      color: #ffffff !important;
+      text-shadow: 0 1px 3px rgba(0, 0, 0, 0.7) !important;
+    }
+    .sigma_header.header-4 .sigma_header-top a:hover,
+    .sigma_header.header-4 .sigma_header-top a:hover i {
+      color: #f7a823 !important;
+    }
+    .sigma_header.header-4 .desktop-toggler span {
       background-color: #ffffff !important;
     }
 
@@ -193,15 +208,6 @@
       }
     }
 
-    /* Universal Full Image Display (no empty balance space) */
-    .img-full-display {
-      width: 100% !important;
-      height: 100% !important;
-      object-fit: cover !important;
-      object-position: center 25% !important;
-      display: block !important;
-    }
-
     /* Pastoral callout font size matching website */
     .sigma_cta p {
       font-size: 14.5px !important;
@@ -213,7 +219,6 @@
     .sigma_cta h4, .sigma_cta h4 a {
       font-size: 19px !important;
     }
-    /* Homepage: top bar links stay in original blue/navy (no override) */
 
   
     /* Ensure no horizontal scroll on mobile */
@@ -295,38 +300,181 @@
        COMPREHENSIVE RESPONSIVENESS & FULL IMAGE CONTAINER STYLES
        ======================================================== */
     
-    /* 1. Full Image Container Premises */
+    /* 1. Component-Specific Card & Image Dimensions (Protects Card Shapes & Eliminates Gaps) */
+    
+    /* Dedicated frames (Bishop message, etc.) */
     .img-frame-large {
       width: 100%;
       height: 280px;
-      background-color: #f1f4f7;
-      display: flex;
-      align-items: center;
-      justify-content: center;
       position: relative;
+      overflow: hidden;
+      border-radius: 8px;
     }
     .img-frame-small {
       width: 100%;
       height: 170px;
-      background-color: #f1f4f7;
-      display: flex;
-      align-items: center;
-      justify-content: center;
       position: relative;
+      overflow: hidden;
+      border-radius: 8px;
     }
     .img-full-display {
-      max-width: 100% !important;
-      max-height: 100% !important;
-      width: auto !important;
-      height: auto !important;
-      object-fit: contain !important;
+      width: 100% !important;
+      height: 100% !important;
+      object-fit: cover !important;
+      object-position: center 25% !important;
       display: block !important;
-      margin: auto !important;
       transition: transform 0.35s ease;
     }
     .img-frame-large:hover .img-full-display,
     .img-frame-small:hover .img-full-display {
-      transform: scale(1.02);
+      transform: scale(1.03);
+    }
+
+    /* Event Cards */
+    .card {
+      display: flex !important;
+      flex-direction: column !important;
+      height: 100% !important;
+      border-radius: 8px !important;
+      overflow: hidden !important;
+    }
+    .card .card-img-top {
+      width: 100% !important;
+      height: 210px !important;
+      min-height: 210px !important;
+      max-height: 210px !important;
+      object-fit: cover !important;
+      object-position: center !important;
+      display: block !important;
+      flex-shrink: 0 !important;
+    }
+    .card .card-body {
+      flex: 1 1 auto !important;
+      display: flex !important;
+      flex-direction: column !important;
+    }
+
+    /* Diocesan News & Updates Cards */
+    .sigma_post {
+      display: flex !important;
+      flex-direction: column !important;
+      height: 100% !important;
+      border-radius: 8px !important;
+      overflow: hidden !important;
+    }
+    .sigma_post .sigma_post-thumb {
+      height: 210px !important;
+      min-height: 210px !important;
+      max-height: 210px !important;
+      overflow: hidden !important;
+      flex-shrink: 0 !important;
+    }
+    .sigma_post .sigma_post-thumb img {
+      width: 100% !important;
+      height: 100% !important;
+      object-fit: cover !important;
+      object-position: center !important;
+      display: block !important;
+      transition: transform 0.35s ease;
+    }
+    .sigma_post:hover .sigma_post-thumb img {
+      transform: scale(1.05);
+    }
+    .sigma_post .sigma_post-body {
+      flex: 1 1 auto !important;
+      display: flex !important;
+      flex-direction: column !important;
+    }
+
+    /* Featured Sermon Box */
+    .sigma_sermon-box img {
+      width: 100% !important;
+      height: 250px !important;
+      min-height: 250px !important;
+      max-height: 250px !important;
+      object-fit: cover !important;
+      object-position: center !important;
+      display: block !important;
+      border-radius: 6px !important;
+      flex-shrink: 0 !important;
+    }
+
+    /* Stewardship & Ministry Services (Style 2) */
+    .sigma_service.style-2 {
+      display: flex !important;
+      flex-direction: column !important;
+      height: 100% !important;
+      border-radius: 8px !important;
+      overflow: hidden !important;
+    }
+    .sigma_service.style-2 .sigma_service-thumb {
+      height: 210px !important;
+      min-height: 210px !important;
+      max-height: 210px !important;
+      overflow: hidden !important;
+      border-radius: 6px !important;
+      flex-shrink: 0 !important;
+    }
+    .sigma_service.style-2 .sigma_service-thumb img {
+      width: 100% !important;
+      height: 100% !important;
+      object-fit: cover !important;
+      object-position: center !important;
+      display: block !important;
+    }
+    .sigma_service.style-2 .sigma_service-body {
+      flex: 1 1 auto !important;
+      display: flex !important;
+      flex-direction: column !important;
+    }
+
+    /* Circular Volunteer Avatars on Homepage (Style 4) */
+    .sigma_volunteers.volunteers-4 {
+      text-align: center;
+    }
+    .sigma_volunteers.volunteers-4 .sigma_volunteers-thumb {
+      width: 190px !important;
+      height: 190px !important;
+      max-width: 190px !important;
+      max-height: 190px !important;
+      margin: 0 auto 18px !important;
+      border-radius: 50% !important;
+      overflow: hidden !important;
+      position: relative !important;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.15) !important;
+    }
+    .sigma_volunteers.volunteers-4 .sigma_volunteers-thumb img {
+      width: 100% !important;
+      height: 100% !important;
+      object-fit: cover !important;
+      object-position: top center !important;
+      border-radius: 50% !important;
+      display: block !important;
+    }
+
+    /* Rectangular Leadership Cards (Leadership Page) */
+    .sigma_volunteers:not(.volunteers-4) .sigma_volunteers-thumb {
+      height: 260px !important;
+      min-height: 260px !important;
+      max-height: 260px !important;
+      overflow: hidden !important;
+      position: relative !important;
+      flex-shrink: 0 !important;
+    }
+
+    /* Small Recent Post Thumbnails (Footer & Sidebars) */
+    .sigma_recent-post img,
+    .footer-widget .sigma_recent-post img {
+      width: 48px !important;
+      min-width: 48px !important;
+      max-width: 48px !important;
+      height: 48px !important;
+      min-height: 48px !important;
+      max-height: 48px !important;
+      object-fit: cover !important;
+      border-radius: 4px !important;
+      display: inline-block !important;
+      flex-shrink: 0 !important;
     }
     
     /* 2. Global Image Safety */
@@ -848,8 +996,6 @@
       <li class="menu-item"><a href="{{ route('contact') }}">Contact Us</a></li>
       @auth
         <li class="menu-item"><a href="{{ route('admin.dashboard') }}" class="text-primary"><i class="fas fa-cog me-1"></i> Admin Dashboard</a></li>
-      @else
-        <li class="menu-item"><a href="{{ route('login') }}"><i class="fas fa-lock me-1"></i> Staff Login</a></li>
       @endauth
     </ul>
   </aside>
@@ -964,7 +1110,7 @@
     <div class="sigma_footer-middle">
       <div class="container">
         <div class="row">
-          <div class="col-xl-4 col-lg-4 col-md-6 col-6 footer-widget">
+          <div class="col-xl-4 col-lg-4 col-md-12 col-12 footer-widget mb-4 mb-lg-0">
             <div class="sigma_footer-logo mb-3">
               <a class="d-flex align-items-center text-decoration-none" href="{{ route('home') }}">
                 <img loading="lazy" src="{{ asset('assets/img/diocese/crest_transparent.png') }}" alt="Diocese of Jalle" style="height: 48px; width: auto;" class="me-2">
@@ -1004,7 +1150,7 @@
               <li> <a href="{{ route('contact') }}">Prayer Request</a> </li>
             </ul>
           </div>
-          <div class="col-xl-4 col-lg-4 col-md-6 col-6 footer-widget widget-recent-posts">
+          <div class="col-xl-4 col-lg-4 col-md-12 col-12 footer-widget widget-recent-posts mt-4 mt-lg-0">
             <h5 class="widget-title">Diocesan News</h5>
             <article class="sigma_recent-post">
               <a href="{{ route('news') }}"><img loading="lazy" src="{{ asset('assets/img/diocese/bishop-and-clergy.jpeg') }}" alt="Diocese post"></a>

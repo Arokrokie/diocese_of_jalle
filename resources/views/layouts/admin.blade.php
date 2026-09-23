@@ -21,7 +21,21 @@
           height: 380,
           branding: false,
           promotion: false,
-          content_style: 'body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif; font-size: 15px; line-height: 1.6; color: #333; }'
+          content_style: 'body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif; font-size: 15px; line-height: 1.6; color: #333; }',
+          setup: function(editor) {
+            editor.on('change keyup paste input', function() {
+              editor.save();
+            });
+          }
+        });
+
+        // Always trigger TinyMCE save before form submission
+        document.querySelectorAll('form').forEach(function(form) {
+          form.addEventListener('submit', function() {
+            if (typeof tinymce !== 'undefined') {
+              tinymce.triggerSave();
+            }
+          });
         });
       }
     });
