@@ -11,59 +11,67 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('posts', function (Blueprint $table) {
-            $table->id();
-            $table->string('title');
-            $table->string('slug')->unique();
-            $table->string('category')->default('News');
-            $table->text('excerpt')->nullable();
-            $table->longText('content');
-            $table->string('image')->nullable();
-            $table->string('author')->default('Diocese of Jalle');
-            $table->boolean('is_published')->default(true);
-            $table->timestamp('published_at')->nullable();
-            $table->timestamps();
-        });
+        if (!Schema::hasTable('posts')) {
+            Schema::create('posts', function (Blueprint $table) {
+                $table->id();
+                $table->string('title');
+                $table->string('slug')->unique();
+                $table->string('category')->default('News');
+                $table->text('excerpt')->nullable();
+                $table->longText('content');
+                $table->string('image')->nullable();
+                $table->string('author')->default('Diocese of Jalle');
+                $table->boolean('is_published')->default(true);
+                $table->timestamp('published_at')->nullable();
+                $table->timestamps();
+            });
+        }
 
-        Schema::create('sermons', function (Blueprint $table) {
-            $table->id();
-            $table->string('title');
-            $table->string('slug')->unique();
-            $table->string('preacher')->default('Rt. Rev. Abraham Matiop Deng');
-            $table->string('scripture')->nullable();
-            $table->date('sermon_date')->nullable();
-            $table->text('description')->nullable();
-            $table->longText('notes')->nullable();
-            $table->string('audio_url')->nullable();
-            $table->string('video_url')->nullable();
-            $table->string('image')->nullable();
-            $table->timestamps();
-        });
+        if (!Schema::hasTable('sermons')) {
+            Schema::create('sermons', function (Blueprint $table) {
+                $table->id();
+                $table->string('title');
+                $table->string('slug')->unique();
+                $table->string('preacher')->default('Rt. Rev. Abraham Matiop Deng');
+                $table->string('scripture')->nullable();
+                $table->date('sermon_date')->nullable();
+                $table->text('description')->nullable();
+                $table->longText('notes')->nullable();
+                $table->string('audio_url')->nullable();
+                $table->string('video_url')->nullable();
+                $table->string('image')->nullable();
+                $table->timestamps();
+            });
+        }
 
-        Schema::create('events', function (Blueprint $table) {
-            $table->id();
-            $table->string('title');
-            $table->string('slug')->unique();
-            $table->string('location')->default('Jalle Payam, Bor County');
-            $table->date('start_date');
-            $table->date('end_date')->nullable();
-            $table->text('description')->nullable();
-            $table->string('image')->nullable();
-            $table->string('contact_person')->nullable();
-            $table->boolean('is_featured')->default(false);
-            $table->timestamps();
-        });
+        if (!Schema::hasTable('events')) {
+            Schema::create('events', function (Blueprint $table) {
+                $table->id();
+                $table->string('title');
+                $table->string('slug')->unique();
+                $table->string('location')->default('Jalle Payam, Bor County');
+                $table->date('start_date');
+                $table->date('end_date')->nullable();
+                $table->text('description')->nullable();
+                $table->string('image')->nullable();
+                $table->string('contact_person')->nullable();
+                $table->boolean('is_featured')->default(false);
+                $table->timestamps();
+            });
+        }
 
-        Schema::create('contact_messages', function (Blueprint $table) {
-            $table->id();
-            $table->string('name');
-            $table->string('email');
-            $table->string('phone')->nullable();
-            $table->string('subject')->default('General Inquiry');
-            $table->text('message');
-            $table->boolean('is_read')->default(false);
-            $table->timestamps();
-        });
+        if (!Schema::hasTable('contact_messages')) {
+            Schema::create('contact_messages', function (Blueprint $table) {
+                $table->id();
+                $table->string('name');
+                $table->string('email');
+                $table->string('phone')->nullable();
+                $table->string('subject')->default('General Inquiry');
+                $table->text('message');
+                $table->boolean('is_read')->default(false);
+                $table->timestamps();
+            });
+        }
     }
 
     /**
