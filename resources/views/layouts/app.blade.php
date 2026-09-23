@@ -3,7 +3,16 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>@if(Request::is('/'))Diocese of Jalle - Episcopal Church of South Sudan@elseif(trim($__env->yieldContent('title')) && trim($__env->yieldContent('title')) !== 'Diocese of Jalle - Episcopal Church of South Sudan')@yield('title') - Diocese of Jalle - Episcopal Church of South Sudan@else Diocese of Jalle - Episcopal Church of South Sudan@endif</title>
+  @php
+    $pageTitle = trim($__env->yieldContent('title'));
+    $titleSuffix = 'Diocese of Jalle - Episcopal Church of South Sudan';
+    if (Request::is('/') || empty($pageTitle) || $pageTitle === $titleSuffix) {
+        $fullTitle = $titleSuffix;
+    } else {
+        $fullTitle = $pageTitle . ' - ' . $titleSuffix;
+    }
+  @endphp
+  <title>{{ $fullTitle }}</title>
   <meta name="description" content="@yield('meta_description', 'Official web portal of the Diocese of Jalle, Jonglei Internal Province, Episcopal Church of South Sudan (ECSS).')">
 
   <!-- Favicon -->
@@ -25,8 +34,8 @@
   <link rel="stylesheet" href="{{ asset('assets/css/plugins/font-awesome.min.css') }}">
 
   <!-- Template Style sheet -->
-  <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}?v={{ filemtime(public_path('assets/css/style.css')) }}">
-  <link rel="stylesheet" href="{{ asset('assets/css/responsive.css') }}?v={{ filemtime(public_path('assets/css/responsive.css')) }}">
+  <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}?v={{ @filemtime(public_path('assets/css/style.css')) ?: '1.0' }}">
+  <link rel="stylesheet" href="{{ asset('assets/css/responsive.css') }}?v={{ @filemtime(public_path('assets/css/responsive.css')) ?: '1.0' }}">
   <link id="mht-color-link" class="color-changing" href="{{ asset('assets/css/theme-colors/color1.css') }}" rel="stylesheet">
 
   <style>
@@ -907,7 +916,7 @@
   <script src="{{ asset('assets/js/plugins/slick.min.js') }}"></script>
   <script src="{{ asset('assets/js/plugins/ion.rangeSlider.min.js') }}"></script>
 
-  <script src="{{ asset('assets/js/main.js') }}?v={{ filemtime(public_path('assets/js/main.js')) }}"></script>
+  <script src="{{ asset('assets/js/main.js') }}?v={{ @filemtime(public_path('assets/js/main.js')) ?: '1.0' }}"></script>
   @stack('scripts')
 </body>
 </html>

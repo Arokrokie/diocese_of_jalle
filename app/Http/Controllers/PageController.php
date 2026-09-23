@@ -43,6 +43,20 @@ class PageController extends Controller
                     'Coordination of Diocesan Councils and Synod Assemblies.'
                 ]
             ],
+            'canon-michael-makuol-garang' => [
+                'name' => 'Venerable Canon Michael Makuol Garang',
+                'title' => "Bishop's Commissioner",
+                'ecss_title' => 'Dean & Senior Episcopal Commissioner',
+                'image' => 'assets/img/diocese/clergyman-portrait.jpeg',
+                'bio' => 'Canon Michael Makuol Garang serves as the primary administrative and episcopal commissioner for the Diocese of Jalle, assisting the Diocesan Bishop in diocesan governance, parish pastoral oversight, synod planning, and diocesan representation across the Jonglei Internal Province.',
+                'scripture' => '1 Corinthians 4:2 — "Now it is required that those who have been given a trust must prove faithful."',
+                'responsibilities' => [
+                    'Diocesan Administrative Direction and episcopal coordination.',
+                    'Parish visitation, conflict mediation, and clergy mentoring.',
+                    'Liaison with the ECSS Jonglei Internal Provincial Secretariat.',
+                    'Coordination of Diocesan Councils and Synod Assemblies.'
+                ]
+            ],
             'archdeacon-samuel-akuak' => [
                 'name' => 'Venerable Archdeacon Samuel Akuak',
                 'title' => 'Secretary of Diocese',
